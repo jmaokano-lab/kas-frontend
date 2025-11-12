@@ -1,0 +1,196 @@
+'use client';
+
+
+import Link from 'next/link';
+import { PhoneIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid';
+import img from "../../assets/img/bg/footer-bg-1-1.jpg"
+import img2 from "../../assets/img/bg/gallery-img-1-1.jpg"
+import Image from 'next/image';
+import { Instagram } from 'lucide-react';
+const usefulLeft = [
+    { label: 'Help Center', href: '/help' },
+    { label: 'About Us', href: '/about-us' },
+    { label: 'Contact Us', href: '/contact' },
+    { label: 'Become A Cleaner', href: '/careers' },
+    { label: 'Blog', href: '/blog' },
+];
+
+const usefulRight = [
+    { label: 'Apartment Cleaning', href: '/services/apartment-cleaning' },
+    { label: 'One-Time Clean', href: '/services/one-time-clean' },
+    { label: 'Shield Glass', href: '/services/shield-glass' },
+    { label: 'Vacation Rental Cleaning', href: '/services/vacation-rental' },
+];
+
+const insta = [
+    'img2',
+    '/images/insta2.jpg',
+    '/images/insta3.jpg',
+    '/images/insta4.jpg',
+    '/images/insta5.jpg',
+    '/images/insta6.jpg',
+];
+
+export default function Footer() {
+    return (
+        <footer className="relative overflow-hidden  bg-[#042a2f08] text-white">
+            <Image
+                src={img}
+                alt="Hero"
+                width={1400}
+                height={800}
+                className="absolute  z-10 h-full "
+            />
+
+            <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-16 md:grid-cols-2 md:px-8 lg:grid-cols-4">
+
+                {/* Brand / about */}
+                <div>
+                    <div className="mb-6 flex items-center gap-3">
+                        <span className="grid h-14 w-14 place-items-center rounded-full bg-[#119d3e] text-white shadow-lg">
+                            {/* broom-ish logo */}
+                            <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor">
+                                <path d="M9 11l8-8 2 2-8 8H9v-2zM3 21l6-6 2 2-6 6H3v-2z" />
+                            </svg>
+                        </span>
+                        <span className="text-4xl font-extrabold">Poolito</span>
+                    </div>
+
+                    <p className="max-w-md text-lg leading-7 text-white/90">
+                        Provide detailed house cleaning & sanitizing services for valued clients.
+                    </p>
+
+                    <div className="mt-8 flex items-start gap-4">
+                        <div className="grid h-14 w-14 place-items-center rounded-xl border border-white/15 text-[#27c36e]">
+                            <PhoneIcon className="h-8 w-8" />
+                        </div>
+                        <div>
+                            <div className="text-2xl font-extrabold tracking-wide">+1 999 888 666</div>
+                            <div className="mt-1 font-bold text-[#27c36e]">Call 24/7</div>
+                        </div>
+                    </div>
+
+                    {/* social */}
+                    <div className="mt-8 flex items-center gap-3">
+                        <span className="font-semibold">Follow On :</span>
+                        <div className="flex gap-3">
+                            <Social href="#" label="Facebook" />
+                            <Social href="#" label="LinkedIn" />
+                            <Social href="#" label="Instagram" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Useful Links (left) */}
+                <div>
+                    <SectionTitle>Useful Links</SectionTitle>
+                    <ul className="mt-6 space-y-4">
+                        {usefulLeft.map((i) => (
+                            <FooterLink key={i.label} href={i.href}>
+                                {i.label}
+                            </FooterLink>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* Useful Links (right list) */}
+                <div className="md:col-start-2 lg:col-start-auto">
+                    <div className="invisible block md:visible">
+                        <SectionTitle>&nbsp;</SectionTitle>
+                    </div>
+                    <ul className="mt-6 space-y-4">
+                        {usefulRight.map((i) => (
+                            <FooterLink key={i.label} href={i.href}>
+                                {i.label}
+                            </FooterLink>
+                        ))}
+                    </ul>
+                </div>
+
+                {/* Instagram */}
+                <div>
+                    <SectionTitle>Instagram</SectionTitle>
+                    <div className="mt-6 grid grid-cols-3 gap-4">
+                        {insta.map((src, i) => (
+                            <Link key={i} href="#" className="group block">
+                                <div className="rounded-xl border-2 border-[#27c36e] p-1 transition group-hover:scale-[1.02]">
+                                    <img
+                                        src={src}
+                                        alt={`Instagram ${i + 1}`}
+                                        className="h-24 w-full rounded-lg object-cover md:h-24 lg:h-24"
+                                    />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* bottom bar */}
+            <div className="relative z-10 border-t border-white/10 bg-[#07353a]">
+                <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-4 text-sm text-white/80 md:flex-row md:px-8">
+                    <p>© {new Date().getFullYear()} Poolito. All rights reserved.</p>
+                    <div className="flex gap-4">
+                        <Link className="hover:text-white" href="/privacy">Privacy Policy</Link>
+                        <span className="opacity-30">|</span>
+                        <Link className="hover:text-white" href="/terms">Terms of Service</Link>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    );
+}
+
+/* ---------- small helpers ---------- */
+
+function SectionTitle({ children }: { children: React.ReactNode }) {
+    return (
+        <div>
+            <h3 className="text-3xl font-extrabold">{children}</h3>
+            {/* green line + long faint line */}
+            <div className="mt-4 flex items-center">
+                <span className="h-1 w-28 rounded-full bg-[#27c36e]" />
+                <span className="ml-3 h-[2px] flex-1 rounded bg-white/15" />
+            </div>
+        </div>
+    );
+}
+
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+    return (
+        <li>
+            <Link
+                href={href}
+                className="group inline-flex items-start gap-3 text-lg font-semibold text-white/90 hover:text-white"
+            >
+                <ChevronDoubleRightIcon className="mt-1 h-4 w-4 flex-none text-[#27c36e] transition group-hover:translate-x-2" />
+                <span>{children}</span>
+            </Link>
+        </li>
+    );
+}
+
+function Social({ href, label }: { href: string; label: string }) {
+    const icon =
+        label === 'Facebook' ? (
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                <path d="M22 12.06A10 10 0 1010.75 22v-7H8v-3h2.75V9.5c0-2.7 1.6-4.2 4.06-4.2 1.18 0 2.41.21 2.41.21v2.65h-1.36c-1.34 0-1.76.83-1.76 1.68V12H17l-.5 3h-2.4v7A10 10 0 0022 12.06z" />
+            </svg>
+        ) : label === 'LinkedIn' ? (
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                <path d="M6.94 8.5v12h-4v-12h4zM4.94 3.5a2.31 2.31 0 110 4.62 2.31 2.31 0 010-4.62zM22 20.5h-4v-6.2c0-3.7-4-3.43-4 0v6.2h-4v-12h4v1.9c1.86-3.45 8-3.7 8 3.3v6.8z" />
+            </svg>
+        ) : (
+           <Instagram className='h-5 w-5'></Instagram>
+        );
+
+    return (
+        <Link
+            href={href}
+            aria-label={label}
+            className="grid h-11 w-11 place-items-center rounded-full bg-[#119d3e] text-white shadow-md transition hover:bg-[#27c36e]"
+        >
+            {icon}
+        </Link>
+    );
+}
