@@ -51,7 +51,7 @@ const NAV_ITEMS: NavItem[] = [
 type User = { name: string; email: string; avatarUrl?: string };
 
 export default function Navbar({
-  brand = 'Poolito',
+  brand = 'KAS',
   cartCount = 3,
   user = { name: 'John Doe', email: 'john@example.com' },
   onLogout,
@@ -78,21 +78,22 @@ export default function Navbar({
 
   return (
     <header className=" bg-white">
-      <nav className="mx-auto flex max-w-7xl items-stretch justify-between px-3 md:px-0">
+      <nav className="mx-auto flex max-w-7xl items-stretch justify-between px-3 md:pl-2">
         {/* Left brand with diagonal slice */}
         <div className="relative flex items-center pr-10">
           <Link
             href="/"
-            className=" z-[1] flex min-h-[72px] items-center gap-2 bg-[#119d3e] px-4 text-white md:px-5"
+            className=" z-[1] flex min-h-[72px] items-center gap-2  px-4 text-white md:px-5"
           >
-            <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-[#119d3e]">
+            {/* <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-[#119d3e]">
               <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
                 <path d="M9 11l8-8 2 2-8 8H9v-2zM3 21l6-6 2 2-6 6H3v-2z" />
               </svg>
-            </span>
-            <span className="text-2xl font-extrabold leading-none">{brand}</span>
+            </span> */}
+            <img src="./kasLogo.png" alt="KAS"  className='size-14'/>
+            {/* <span className="text-2xl font-extrabold leading-none">{brand}</span> */}
           </Link>
-          <div className=" absolute top-0 right-[-40%] bottom-0 w-[9999px] bg-[#27c36e] transform skew-x-[43deg]" />
+          <div className=" absolute top-0 right-[-41%] bottom-0 w-[9999px] bg-[#27c36e] transform skew-x-[41deg]" />
           <div className=" absolute top-0 right-[-35%] bottom-0 w-[9999px] bg-[#119d3e] transform skew-x-[33deg]" />
 
           {/* <div className=" pointer-events-none absolute left-[calc(100%+24px)] top-0 hidden h-full w-12 -skew-x-12 bg-[#27c36e] lg:block" /> */}

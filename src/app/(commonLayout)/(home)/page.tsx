@@ -1,8 +1,13 @@
+import Banner from '@/components/home/Banner'
+import StatsBar from '@/components/home/StartBar'
 import React from 'react'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <Banner/>
+      <StatsBar></StatsBar>
+    </div>
   )
 }
 

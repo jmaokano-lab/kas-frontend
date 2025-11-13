@@ -15,7 +15,6 @@ export default function TopBar() {
 
 
                     </div>
-
                 </div>
                 <div className="flex items-center gap-3 md:gap-5  px-3 py-2 md:px-6 absolute ml-3 ">
                     {/* email */}
@@ -24,7 +23,7 @@ export default function TopBar() {
                             <path d="M2 6a2 2 0 012-2h16a2 2 0 012 2v.4l-10 6.25L2 6.4V6zM2 8.2l9.4 5.88a2 2 0 002.2 0L23 8.2V18a2 2 0 01-2 2H3.99A1.99 1.99 0 012 18V8.2z" />
                         </svg>
                         <a href="mailto:info@example.com" className="font-semibold hover:text-[#27c36e]">
-                            info@example.com
+                            kasnyusa@gmail.com
                         </a>
                     </div>
 
@@ -48,30 +47,30 @@ export default function TopBar() {
                     <span className="hidden text-sm font-bold md:block">Follow Us On :</span>
 
                     <div className="flex items-center gap-2 md:gap-3">
-                        
 
-                            <SocialRound href="#" label="Facebook">
-                                <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
-                                    <path d="M22 12.06A10 10 0 1010.75 22v-7H8v-3h2.75V9.5c0-2.7 1.6-4.2 4.06-4.2 1.18 0 2.41.21 2.41.21v2.65h-1.36c-1.34 0-1.76.83-1.76 1.68V12H17l-.5 3h-2.4v7A10 10 0 0022 12.06z" />
-                                </svg>
-                            </SocialRound>
-                       
-                        
-                            <SocialRound href="#" label="LinkedIn">
-                                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                                    <path d="M6.94 8.5v12h-4v-12h4zM4.94 3.5a2.31 2.31 0 110 4.62 2.31 2.31 0 010-4.62zM22 20.5h-4v-6.2c0-3.7-4-3.43-4 0v6.2h-4v-12h4v1.9c1.86-3.45 8-3.7 8 3.3v6.8z" />
-                                </svg>
-                            </SocialRound>
-                       
-                        
 
-                            <SocialRound href="#" label="Instagram">
-                                <Instagram className="h-5 w-5"/>
-                                {/* <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+                        <SocialRound href="#" label="Facebook">
+                            <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
+                                <path d="M22 12.06A10 10 0 1010.75 22v-7H8v-3h2.75V9.5c0-2.7 1.6-4.2 4.06-4.2 1.18 0 2.41.21 2.41.21v2.65h-1.36c-1.34 0-1.76.83-1.76 1.68V12H17l-.5 3h-2.4v7A10 10 0 0022 12.06z" />
+                            </svg>
+                        </SocialRound>
+
+
+                        <SocialRound href="#" label="LinkedIn">
+                            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
+                                <path d="M6.94 8.5v12h-4v-12h4zM4.94 3.5a2.31 2.31 0 110 4.62 2.31 2.31 0 010-4.62zM22 20.5h-4v-6.2c0-3.7-4-3.43-4 0v6.2h-4v-12h4v1.9c1.86-3.45 8-3.7 8 3.3v6.8z" />
+                            </svg>
+                        </SocialRound>
+
+
+
+                        <SocialRound href="#" label="Instagram">
+                            <Instagram className="h-5 w-5" />
+                            {/* <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor">
                                     <path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7zm5 3.5A5.5 5.5 0 1111.5 16 5.5 5.5 0 0112 7.5zm0 2A3.5 3.5 0 1015.5 13 3.5 3.5 0 0012 9.5zM18 6.75a1 1 0 11-1 1 1 1 0 011-1z" />
                                 </svg> */}
-                            </SocialRound>
-                       
+                        </SocialRound>
+
 
 
 

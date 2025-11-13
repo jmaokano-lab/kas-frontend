@@ -1,0 +1,104 @@
+/* BUBBLES */
+.bubble {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, #ffffff55, #1dd06b0d);
+  opacity: 0;
+  animation: bubbleFloat 18s linear infinite;
+  bottom: -120px;
+}
+
+/* Different sizes / positions / timing */
+.bubble-1 {
+  width: 90px;
+  height: 90px;
+  left: 8%;
+  animation-duration: 18s;
+  animation-delay: 0s;
+}
+
+.bubble-2 {
+  width: 60px;
+  height: 60px;
+  left: 28%;
+  animation-duration: 16s;
+  animation-delay: 4s;
+}
+
+.bubble-3 {
+  width: 110px;
+  height: 110px;
+  left: 52%;
+  animation-duration: 20s;
+  animation-delay: 2s;
+}
+
+.bubble-4 {
+  width: 70px;
+  height: 70px;
+  left: 75%;
+  animation-duration: 17s;
+  animation-delay: 6s;
+}
+
+@keyframes bubbleFloat {
+  0% {
+    transform: translateY(0) scale(0.7);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.35;
+  }
+  70% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(-130vh) scale(1.05);
+    opacity: 0;
+  }
+}
+
+/* ROTATING CIRCLE */
+.rotating-circle {
+  position: absolute;
+  right: 22%;
+  top: 18%;
+  width: 90px;
+  height: 90px;
+  border-radius: 9999px;
+  border: 3px solid #17c964;
+  box-shadow: 0 0 25px rgba(23, 201, 100, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rotateCircle 10s linear infinite;
+}
+
+/* Inner circle deco */
+.rotating-circle::before {
+  content: "";
+  width: 70%;
+  height: 70%;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle, #17c964 0, #17c964 35%, transparent 36%),
+    conic-gradient(
+      from 0deg,
+      transparent 0 10deg,
+      rgba(23, 201, 100, 0.5) 10deg 20deg,
+      transparent 20deg 30deg,
+      rgba(23, 201, 100, 0.5) 30deg 40deg,
+      transparent 40deg 50deg,
+      rgba(23, 201, 100, 0.5) 50deg 60deg,
+      transparent 60deg 360deg
+    );
+}
+
+@keyframes rotateCircle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

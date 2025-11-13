@@ -6,7 +6,7 @@ import { PhoneIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid';
 import img from "../../assets/img/bg/footer-bg-1-1.jpg"
 import img2 from "../../assets/img/bg/gallery-img-1-1.jpg"
 import Image from 'next/image';
-import { Instagram } from 'lucide-react';
+import { HomeIcon, Instagram } from 'lucide-react';
 const usefulLeft = [
     { label: 'Help Center', href: '/help' },
     { label: 'About Us', href: '/about-us' },
@@ -23,12 +23,12 @@ const usefulRight = [
 ];
 
 const insta = [
-    'img2',
-    '/images/insta2.jpg',
-    '/images/insta3.jpg',
-    '/images/insta4.jpg',
-    '/images/insta5.jpg',
-    '/images/insta6.jpg',
+    './american-express.png',
+    './card.png',
+    './stripe.png',
+    './paypal.png',
+    './visa.png',
+   
 ];
 
 export default function Footer() {
@@ -47,25 +47,34 @@ export default function Footer() {
                 {/* Brand / about */}
                 <div>
                     <div className="mb-6 flex items-center gap-3">
-                        <span className="grid h-14 w-14 place-items-center rounded-full bg-[#119d3e] text-white shadow-lg">
+                        <span className="grid h-14 w-14 place-items-center  text-white shadow-lg">
                             {/* broom-ish logo */}
-                            <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor">
+                            {/* <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor">
                                 <path d="M9 11l8-8 2 2-8 8H9v-2zM3 21l6-6 2 2-6 6H3v-2z" />
-                            </svg>
+                            </svg> */}
+                            <img src="./kasLogo.png" alt="KAS"  className='size-14'/>
                         </span>
-                        <span className="text-4xl font-extrabold">Poolito</span>
+                        {/* <span className="text-4xl font-extrabold">Poolito</span> */}
                     </div>
 
                     <p className="max-w-md text-lg leading-7 text-white/90">
                         Provide detailed house cleaning & sanitizing services for valued clients.
                     </p>
 
-                    <div className="mt-8 flex items-start gap-4">
+                    <div className='flex items-start gap-4 mt-3'>
+                        <div className='grid p-2 h-14 w-14 place-items-center rounded-xl border border-white/15 text-[#27c36e]'>
+                            <HomeIcon className="h-8 w-8"></HomeIcon>
+                            </div>
+                        <div className="text-xl font-semibold tracking-wide">56-34 56th St, Mespath, NY 11378, USA</div>
+                    </div>
+
+                    <div className="mt-3 flex items-start gap-4">
                         <div className="grid h-14 w-14 place-items-center rounded-xl border border-white/15 text-[#27c36e]">
                             <PhoneIcon className="h-8 w-8" />
                         </div>
                         <div>
                             <div className="text-2xl font-extrabold tracking-wide">+1 999 888 666</div>
+                            
                             <div className="mt-1 font-bold text-[#27c36e]">Call 24/7</div>
                         </div>
                     </div>
@@ -109,15 +118,15 @@ export default function Footer() {
 
                 {/* Instagram */}
                 <div>
-                    <SectionTitle>Instagram</SectionTitle>
+                    <SectionTitle>Payment</SectionTitle>
                     <div className="mt-6 grid grid-cols-3 gap-4">
                         {insta.map((src, i) => (
                             <Link key={i} href="#" className="group block">
-                                <div className="rounded-xl border-2 border-[#27c36e] p-1 transition group-hover:scale-[1.02]">
+                                <div className="rounded-xl   transition group-hover:scale-[1.02] border-2 border-[#27c36e] px-1">
                                     <img
                                         src={src}
                                         alt={`Instagram ${i + 1}`}
-                                        className="h-24 w-full rounded-lg object-cover md:h-24 lg:h-24"
+                                        className="h-12 w-full rounded-lg object-cover md:h-12 lg:h-14 "
                                     />
                                 </div>
                             </Link>
@@ -127,16 +136,32 @@ export default function Footer() {
             </div>
 
             {/* bottom bar */}
-            <div className="relative z-10 border-t border-white/10 bg-[#07353a]">
-                <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-4 text-sm text-white/80 md:flex-row md:px-8">
-                    <p>© {new Date().getFullYear()} Poolito. All rights reserved.</p>
-                    <div className="flex gap-4">
-                        <Link className="hover:text-white" href="/privacy">Privacy Policy</Link>
-                        <span className="opacity-30">|</span>
-                        <Link className="hover:text-white" href="/terms">Terms of Service</Link>
+            <div className="relative z-10 border-t border-white/10 bg-[#07353a] h-20">
+                <div className="absolute z-40 left-1 lg:left-7 max-w-7xl mx-auto h-20 w-full flex items-center px-4 md:px-8">
+
+                    <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 text-white/90">
+
+                        {/* LEFT SIDE */}
+                        <p className="text-sm lg:text-lg font-normal lg:font-semibold">
+                            © Copyright {new Date().getFullYear()}
+                            <span className="text-[#07353a] hover:text-white ml-1">KAS</span>
+                            . All rights reserved.
+                        </p>
+
+                        {/* RIGHT SIDE */}
+                        <div className="flex justify-start lg:justify-end items-center gap-4">
+                            <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
+                            <span className="opacity-30">|</span>
+                            <Link href="/terms" className="hover:text-white">Terms of Service</Link>
+                        </div>
+
                     </div>
                 </div>
+
+                {/* GREEN ANGLED SHAPE */}
+                <div className="z-20 absolute top-0 -left-6 bottom-0 w-[330px] lg:w-[500px] bg-[#119d3e] transform skew-x-[33deg]" />
             </div>
+
         </footer>
     );
 }
@@ -181,7 +206,7 @@ function Social({ href, label }: { href: string; label: string }) {
                 <path d="M6.94 8.5v12h-4v-12h4zM4.94 3.5a2.31 2.31 0 110 4.62 2.31 2.31 0 010-4.62zM22 20.5h-4v-6.2c0-3.7-4-3.43-4 0v6.2h-4v-12h4v1.9c1.86-3.45 8-3.7 8 3.3v6.8z" />
             </svg>
         ) : (
-           <Instagram className='h-5 w-5'></Instagram>
+            <Instagram className='h-5 w-5'></Instagram>
         );
 
     return (
