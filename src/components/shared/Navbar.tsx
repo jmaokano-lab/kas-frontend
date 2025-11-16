@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { ShoppingCartIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
@@ -8,7 +8,7 @@ type NavChild = { label: string; href: string; };
 type NavItem = { label: string; href: string; children?: NavChild[] };
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Home', href: '/' }, // no submenu
+  { label: 'Home', href: '/' },
   {
     label: 'About Us',
     href: '/about-us',
@@ -19,33 +19,14 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
-    label: 'Service',
-    href: '/service',
-    children: [
-      { label: 'Pool Cleaning', href: '/service/pool-cleaning' },
-      { label: 'Water Treatment', href: '/service/water-treatment' },
-      { label: 'Maintenance Plans', href: '/service/maintenance' },
-    ],
+    label: 'Products',
+    href: '/Products',
   },
   {
     label: 'Blog',
     href: '/blog',
-    children: [
-      { label: 'Latest Posts', href: '/blog' },
-      { label: 'Guides', href: '/blog/guides' },
-      { label: 'Tips & Tricks', href: '/blog/tips' },
-    ],
   },
-  {
-    label: 'Pages',
-    href: '/pages',
-    children: [
-      { label: 'Pricing', href: '/pricing' },
-      { label: 'FAQs', href: '/faqs' },
-      { label: 'Testimonials', href: '/testimonials' },
-    ],
-  },
-  { label: 'Contact', href: '/contact' }, // no submenu
+  { label: 'Contact', href: '/contact' },
 ];
 
 type User = { name: string; email: string; avatarUrl?: string };
@@ -66,7 +47,25 @@ export default function Navbar({
   const [mobileSub, setMobileSub] = useState<Record<number, boolean>>({});
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // close profile dropdown on outside click
+  // Scroll state to change navbar background on scroll
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true); // Change navbar background when scrolled
+      } else {
+        setScrolled(false);
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Close profile dropdown on outside click
   useEffect(() => {
     const onDocClick = (e: MouseEvent) => {
       if (!dropdownRef.current) return;
@@ -77,26 +76,18 @@ export default function Navbar({
   }, []);
 
   return (
-    <header className=" bg-white">
-      <nav className="mx-auto flex max-w-7xl items-stretch justify-between px-3 md:pl-2">
+    <header className={`bg-white ${scrolled ? 'bg-opacity-95 shadow-md' : 'bg-opacity-100'} sticky top-0 z-50 transition-all`}>
+      <nav className="mx-auto flex max-w-7xl items-stretch justify-between px-3 md:pl-2 mr-5">
         {/* Left brand with diagonal slice */}
         <div className="relative flex items-center pr-10">
           <Link
             href="/"
             className=" z-[1] flex min-h-[72px] items-center gap-2  px-4 text-white md:px-5"
           >
-            {/* <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-[#119d3e]">
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                <path d="M9 11l8-8 2 2-8 8H9v-2zM3 21l6-6 2 2-6 6H3v-2z" />
-              </svg>
-            </span> */}
             <img src="./kasLogo.png" alt="KAS"  className='size-14'/>
-            {/* <span className="text-2xl font-extrabold leading-none">{brand}</span> */}
           </Link>
           <div className=" absolute top-0 right-[-41%] bottom-0 w-[9999px] bg-[#27c36e] transform skew-x-[41deg]" />
           <div className=" absolute top-0 right-[-35%] bottom-0 w-[9999px] bg-[#119d3e] transform skew-x-[33deg]" />
-
-          {/* <div className=" pointer-events-none absolute left-[calc(100%+24px)] top-0 hidden h-full w-12 -skew-x-12 bg-[#27c36e] lg:block" /> */}
         </div>
 
         {/* Desktop menu with submenus */}
@@ -247,16 +238,13 @@ export default function Navbar({
                       <button
                         className="flex w-full items-center justify-between rounded px-3 py-2 text-left text-[15px] font-extrabold uppercase tracking-wide text-[#0f3036] hover:bg-slate-50 hover:text-[#119d3e]"
                         onClick={() =>
-                          setMobileSub((s) => ({ ...s, [idx]: !s[idx] }))
-                        }
+                          setMobileSub((s) => ({ ...s, [idx]: !s[idx] }))}
                         aria-expanded={!!mobileSub[idx]}
                         aria-controls={`submenu-${idx}`}
                       >
                         <span>{item.label}</span>
                         <ChevronDownIcon
-                          className={`h-5 w-5 transition-transform ${
-                            mobileSub[idx] ? 'rotate-180' : ''
-                          }`}
+                          className={`h-5 w-5 transition-transform ${mobileSub[idx] ? 'rotate-180' : ''}`}
                         />
                       </button>
                       {mobileSub[idx] && (

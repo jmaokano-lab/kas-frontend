@@ -42,7 +42,7 @@ export default function TopBar() {
                 </div>
 
                 {/* RIGHT SIDE: social links */}
-                <div className="flex items-center gap-3 md:gap-4">
+                <div className="flex items-center gap-3 md:gap-4 mr-7">
                     <span className="hidden h-6 w-px bg-white/20 md:block" />
                     <span className="hidden text-sm font-bold md:block">Follow Us On :</span>
 

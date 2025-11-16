@@ -48,7 +48,7 @@ export default function StatsBar() {
             <div className=" flex flex-col lg:flex-row ">
                 {/* LEFT GREEN PANEL */}
                 <div className="bg-[#22c55e] w-full lg:w-1/3 px-8 py-8 flex items-center gap-4 ">
-                    <div className="flex ml-8 h-16 w-16 items-center justify-center rounded-full bg-[#02282f] hover:bg-white/80 shadow-lg">
+                    <div className="flex  h-16 w-16 items-center justify-center rounded-full bg-[#02282f] hover:bg-white/80 shadow-lg">
                         <PlayCircle className="text-white hover:text-[#02282f]" size={34} />
                     </div>
                     <div className="text-white item right">
@@ -62,8 +62,8 @@ export default function StatsBar() {
                 </div>
 
                 {/* RIGHT DARK PANEL */}
-                <div className="w-full  bg-[#02282f] border-b-4 border-[#22c55e]">
-                    <div className="grid grid-cols-1  lg:grid-cols-4 gap-6 px-6 py-6">
+                <div className="w-full  bg-[#02282f] border-b-4 border-[#22c55e] pl-10">
+                    <div className="grid grid-cols-2  lg:grid-cols-4 gap-6 lg:gap-12 px-6 py-6">
                         {/* Item 1 */}
                         <div className="flex items-center gap-4">
                             <Users className="size-10 text-white" />

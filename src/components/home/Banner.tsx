@@ -1,13 +1,12 @@
 "use client"
 import Image from "next/image";
-import bannerImg from "../../assets/img/gallery/multiple.jpg";
+// import bannerImg from "./multiple.jpg";
 import bgImg from "../../assets/img/bg/hero-bg-1.jpg";
 import "./banner.css";
-
-
-
+import { ImageSlider } from "./ImageSLider";
 
 export default function Banner() {
+
     return (
         <div className="relative bg-[#02282f27] h-full">
 
@@ -39,7 +38,7 @@ export default function Banner() {
                         </div>
                         <div className="space-y-6 ml-8 py-12">
 
-                            <div className="inline-flex items-center gap-3 pl-4 py-2 rounded-full bg-[#03363f] border border-[#17c964]">
+                            <div className="inline-flex items-center gap-3 pl-4 py-2 pr-2 rounded-full bg-[#03363f] border border-[#17c964]">
                                 <span className="text-[#119d3e] text-lg">🫧</span>
                                 <span className="text-xs sm:text-sm font-medium tracking-wide text-[#65B748]">
                                     100% SATISFACTION
@@ -47,19 +46,18 @@ export default function Banner() {
                             </div>
 
                             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
-                                CLEANING SERVICES <br />
-                                <span className="text-[#119d3e]">FOR</span> YOUR CITY
+                                Fresh Fish Delivered to Your Doorstep <br />
+                                {/* <span className="text-[#119d3e]">FOR</span> YOUR CITY */}
                             </h1>
 
                             <p className="max-w-md text-sm sm:text-base text-white/70">
-                                Professional home and commercial cleaning specialists. Eco–friendly
-                                products, trained staff and flexible schedules that fit your busy
-                                lifestyle.
+                                Hygienic handling, expert preparation, and reliable home delivery service.
+                                Eco-friendly packaging, trained processing staff, and fast delivery to your doorstep.
                             </p>
 
                             <button className="inline-flex items-center gap-6 px-2 py-2 rounded-full bg-gradient-to-r from-[#1EA9B6] to-[#65B748] text-sm sm:text-base font-semibold shadow-lg shadow-black/40 hover:scale-105 transition-transform">
                                 GET PRICING
-                                <span className="flex p-3 h-12 w-12 items-center justify-center rounded-full bg-[#03363f]">
+                                <span className="flex p-1 h-10 w-10 items-center justify-center rounded-full bg-[#03363f]">
                                     →
                                 </span>
                             </button>
@@ -71,21 +69,32 @@ export default function Banner() {
                     </div>
 
                     {/* RIGHT SIDE */}
-                    <div className="w-full lg:w-1/2  h-full">
+                    <div className="w-full lg:w-1/2  h-full ">
                         <div className="relative overflow-hidden rounded-l-[80px] rounded-r-3xl lg:rounded-l-[140px] border border-white/10 bg-[#03363f] mb-4">
                             {/* angled mask style */}
                             <div className="absolute inset-0 " />
-                            <Image
-                                src={bannerImg}
+                            <ImageSlider
+                                images={[
+                                    { src: "/multiple.jpg", alt: "Fresh fish 1" },
+                                    { src: "/dried.jpg", alt: "Fresh fish 2" },
+                                    { src: "/multi2.png", alt: "Fresh fish 3" },
+                                   
+                                ]}
+                                interval={3000}
+                            />
+                            {/* <Image
+                                src={'/multiple.jpg'}
+                                height={550}
+                                width={400}
                                 alt="Cleaning services"
                                 className="w-full h-full object-cover"
                                 priority
-                            />
+                            /> */}
                         </div>
                     </div>
 
                 </div>
-                
+
             </section>
         </div>
     );
