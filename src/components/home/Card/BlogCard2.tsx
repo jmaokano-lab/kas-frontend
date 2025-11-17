@@ -14,15 +14,15 @@ type BlogPost = {
 
 const BlogCard2 = ({ post }: { post: BlogPost }) => {
   return (
-    <div className="rounded-lg shadow-lg overflow-hidden bg-white p-3 group grid grid-cols-3 gap-5">
+    <div className="rounded-2xl shadow-lg overflow-hidden bg-white p-3 group grid grid-cols-3 gap-5">
       {/* Image Section */}
       <div className="relative rounded-2xl overflow-hidden w-full h-44 col-span-1">
         <Image
           src={post.image}
           alt={post.title}
-          layout="intrinsic"  // Using intrinsic layout for proper aspect ratio
-          width={300}         // Set the width according to your design needs
-          height={200}        // Set the height according to your design needs
+          layout="intrinsic"  
+          width={300}        
+          height={200}        
           className="object-cover w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
         />
         <div className="absolute left-0 bottom-0">

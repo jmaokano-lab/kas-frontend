@@ -3,10 +3,11 @@
 
 import Link from 'next/link';
 import { PhoneIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/solid';
-import img from "../../assets/img/bg/footer-bg-1-1.jpg"
+import img from "/footer-bg-1-1.jpg"
 import img2 from "../../assets/img/bg/gallery-img-1-1.jpg"
 import Image from 'next/image';
 import { HomeIcon, Instagram } from 'lucide-react';
+import Newsletter from '../home/NewsLetter';
 const usefulLeft = [
     { label: 'Help Center', href: '/help' },
     { label: 'About Us', href: '/about-us' },
@@ -29,18 +30,15 @@ const insta = [
     './paypal.png',
     './visa.png',
    
-];
+]; 
 
 export default function Footer() {
     return (
-        <footer className="relative overflow-hidden  bg-[#042a2f08] text-white">
-            <Image
-                src={img}
-                alt="Hero"
-                width={1400}
-                height={800}
-                className="absolute  z-10 h-full "
-            />
+        <footer className="relative overflow-hidden bg-[#052F35]  text-white bg-cover bg-center bg-no-repeat pt-32"
+        style={{ backgroundImage: "url('/footer-bg-1-1.jpg')" }}
+        >
+            {/* <div className="absolute inset-0 bg-[#052F35]" /> */}
+           
 
             <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-12 px-4 py-16 md:grid-cols-2 md:px-8 lg:grid-cols-4">
 
@@ -73,7 +71,7 @@ export default function Footer() {
                             <PhoneIcon className="h-8 w-8" />
                         </div>
                         <div>
-                            <div className="text-2xl font-extrabold tracking-wide">+1 999 888 666</div>
+                            <div className="text-lg font-extrabold tracking-wide">+1 999 888 666</div>
                             
                             <div className="mt-1 font-bold text-[#27c36e]">Call 24/7</div>
                         </div>

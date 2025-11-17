@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowBigRight, ArrowRight, Calendar, MessageCircle, MessageCircleMore } from "lucide-react";
 import BlogCard2 from "./Card/BlogCard2";
+import "./BlogSlide.css"
 
 type BlogPost = {
     title: string;
@@ -62,18 +63,63 @@ const blogPosts: BlogPost[] = [
         link: "/blog/importance-of-sustainable-fishing",
         comments: 21
     },
+    {
+        title: "Benefits of Eating Fresh Fish in your diet from improving heart health to boosting",
+        description: "Discover the amazing health benefits of including fresh fish in your diet, from improving heart health to boosting brain function.",
+        category: "Health",
+        date: "April 27, 2024",
+        image: "/fresh-fish.jpg", // Make sure this image exists in the public folder
+        link: "/blog/benefits-of-eating-fresh-fish",
+        comments: 52
+    },
+    {
+        title: "How to Choose the Best Salmon",
+        description: "Learn how to choose the best quality salmon for your meals, whether you're buying fresh or frozen fish.",
+        category: "Salmon",
+        date: "April 28, 2024",
+        image: "/bream.jpg",
+        link: "/blog/how-to-choose-the-best-salmon",
+        comments: 25
+    },
+    {
+        title: "The Health Benefits of Omega-3 Fatty Acids from Fish",
+        description: "Omega-3 fatty acids are essential for maintaining a healthy heart and mind. Learn more about how fish can benefit your health.",
+        category: "Omega-3",
+        date: "April 29, 2024",
+        image: "/bream2.jpg",
+        link: "/blog/omega-3-fatty-acids-from-fish",
+        comments: 45
+    },
+    {
+        title: "Top 10 Fish Recipes You Should Try",
+        description: "Looking for new ways to enjoy fish? Here are 10 mouth-watering recipes that will elevate your culinary skills.",
+        category: "Recipes",
+        date: "April 30, 2024",
+        image: "/bream4.jpg",
+        link: "/blog/top-10-fish-recipes",
+        comments: 20
+    },
+    {
+        title: "The Importance of Sustainable Fishing",
+        description: "Sustainable fishing is essential to maintaining healthy oceans and fish populations. Learn why it matters and how you can make a difference.",
+        category: "Sustainability",
+        date: "May 1, 2024",
+        image: "/tona.jpg",
+        link: "/blog/importance-of-sustainable-fishing",
+        comments: 21
+    },
 ];
 
 const BlogCard: FC<{ post: BlogPost }> = ({ post }) => {
     return (
-        <div className="rounded-lg shadow-lg overflow-hidden bg-white p-3 group ">
-            <div className="relative rounded-2xl overflow-hidden">
+        <div className="rounded-2xl shadow-lg overflow-hidden bg-white p-3 group max-h-[500px]  ">
+            <div className="relative rounded-2xl overflow-hidden max-h-80">
                 <Image
                     src={post.image}
                     alt={post.title}
                     layout="responsive"
-                    width={450}
-                    height={250}
+                    width={400}
+                    height={150}
                     className="object-cover w-full rounded-2xl transition-transform duration-300 group-hover:scale-105 "
                 />
                 <div className="absolute left-0 bottom-0">
@@ -106,16 +152,16 @@ const BlogCard: FC<{ post: BlogPost }> = ({ post }) => {
 
                     <div className="flex justify-center items-center gap-3">
 
-                    <div className="flex justify-center items-center hover:border-[#052F35] border-dashed border-2 rounded-full size-10 border-[#119d3e] p-2">
+                        <div className="flex justify-center items-center hover:border-[#052F35] border-dashed border-2 rounded-full size-10 border-[#119d3e] p-2">
 
-                        <div className="size-8 rounded-full  bg-[#119d3e] hover:bg-[#052F35] m-1 flex justify-center items-center p-2">
-                            <ArrowRight className="hover:text-white"></ArrowRight>
+                            <div className="size-8 rounded-full  bg-[#119d3e] hover:bg-[#052F35] m-1 flex justify-center items-center p-2">
+                                <ArrowRight className="hover:text-white"></ArrowRight>
+                            </div>
+
                         </div>
-
-                    </div>
-                    <Link href={post.link}>
-                        <p className="text-gray-800 font-semibold hover:text-[#119d3e]  inline-block">Read More</p>
-                    </Link>
+                        <Link href={post.link}>
+                            <p className="text-gray-800 font-semibold hover:text-[#119d3e]  inline-block">Read More</p>
+                        </Link>
                     </div>
                     <div className="w-32 border-1 border-[#a8dfb9]  group-hover:border-[#119d3e] "></div>
                 </div>
@@ -126,7 +172,9 @@ const BlogCard: FC<{ post: BlogPost }> = ({ post }) => {
 
 const Blog = () => {
     return (
-        <section className="bg-gray-100">
+        <section className="bg-gray-100 bg-cover bg-center bg-no-repeat max-h-[850px] max-w-7xl mx-auto px-4 lg:pb-72"
+            style={{ backgroundImage: "url('/about-shape-1-2.png')" }}
+        >
             <div className="py-12 px-4">
 
                 <div className="flex justify-center items-center gap-1">
@@ -145,10 +193,14 @@ const Blog = () => {
                     <div>
                         <BlogCard post={blogPosts[0]} />
                     </div>
-                    <div className="grid  md:grid-rows-2  gap-6">
-                        {blogPosts.map((post) => (
-                            <BlogCard2 key={post.title} post={post} />
-                        ))}
+                    <div className="scroll-container md:h-[400px]">
+                        <div className="scroll-content gap-5">
+                            {/* First set of content */}
+                            {blogPosts.map((post, index) => (
+                                <BlogCard2 key={`post-${index}`} post={post} />
+                            ))}
+                            
+                        </div>
                     </div>
                 </div>
             </div>

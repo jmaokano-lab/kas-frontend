@@ -8,7 +8,12 @@ import { ImageSlider } from "./ImageSLider";
 export default function Banner() {
 
     return (
-        <div className="relative bg-[#02282f27] h-full">
+        <div className="relative  h-full bg-cover bg-center bg-no-repeat"
+            style={{
+                backgroundImage: "url('/client-bg1.jpg')",
+            }}
+        >
+            <div className="absolute inset-0 bg-[#02282f27]" />
 
 
             <section className="relative overflow-hidden bg-[#02282f27] text-white">
@@ -78,7 +83,7 @@ export default function Banner() {
                                     { src: "/multiple.jpg", alt: "Fresh fish 1" },
                                     { src: "/dried.jpg", alt: "Fresh fish 2" },
                                     { src: "/multi2.png", alt: "Fresh fish 3" },
-                                   
+
                                 ]}
                                 interval={3000}
                             />

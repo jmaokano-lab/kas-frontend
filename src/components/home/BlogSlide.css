@@ -1,0 +1,35 @@
+/* Keyframes for smooth vertical scrolling */
+@keyframes marquee {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-100%);
+        /* Moves the content up by its own height */
+    }
+}
+
+/* Scroll container with hidden overflow */
+.scroll-container {
+    position: relative;
+    overflow: hidden;
+    /* Hide content that overflows the container */
+    height: 500px;
+    /* Set the height for the scrolling area */
+}
+
+/* Scrollable content */
+.scroll-content {
+    display: flex;
+    flex-direction: column;
+    /* Stack the items vertically */
+    animation: marquee 40s linear infinite;
+    /* Apply the animation */
+}
+
+/* Optional: Pause the scrolling animation on hover */
+.scroll-container:hover .scroll-content {
+    animation-play-state: paused;
+    /* Pauses animation when hovered */
+}
