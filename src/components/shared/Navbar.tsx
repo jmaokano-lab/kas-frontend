@@ -11,12 +11,8 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'About Us',
-    href: '/about-us',
-    children: [
-      { label: 'Our Story', href: '/about-us/our-story' },
-      { label: 'Team', href: '/about-us/team' },
-      { label: 'Careers', href: '/about-us/careers' },
-    ],
+    href: '/aboutUs',
+    
   },
   {
     label: 'Products',
