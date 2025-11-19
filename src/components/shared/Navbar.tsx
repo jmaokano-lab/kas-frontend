@@ -3,26 +3,40 @@
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import { ShoppingCartIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { usePathname } from 'next/navigation';
+
 
 type NavChild = { label: string; href: string; };
-type NavItem = { label: string; href: string; children?: NavChild[] };
+type NavItem = { label: string; href: string; children?: NavChild[] | undefined };
 
 const NAV_ITEMS: NavItem[] = [
   { label: 'Home', href: '/' },
   {
     label: 'About Us',
     href: '/aboutUs',
-    
+
   },
   {
     label: 'Products',
-    href: '/Products',
+    href: '/products',
   },
   {
     label: 'Blog',
     href: '/blog',
   },
   { label: 'Contact', href: '/contact' },
+  {
+    label: 'Gallery', href: '/gallary', children: [
+      {
+
+        label: 'Images', href: '/gallary/images'
+      },
+      {
+
+        label: 'Videos', href: '/gallary/videos'
+      },
+    ]
+  },
 ];
 
 type User = { name: string; email: string; avatarUrl?: string };
@@ -42,6 +56,8 @@ export default function Navbar({
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSub, setMobileSub] = useState<Record<number, boolean>>({});
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
 
   // Scroll state to change navbar background on scroll
   const [scrolled, setScrolled] = useState(false);
@@ -54,7 +70,7 @@ export default function Navbar({
         setScrolled(false);
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -80,52 +96,61 @@ export default function Navbar({
             href="/"
             className=" z-[1] flex min-h-[72px] items-center gap-2  px-4 text-white md:px-5"
           >
-            <img src="./kasLogo.png" alt="KAS"  className='size-14'/>
+            <img src="./kasLogo.png" alt="KAS" className='size-14' />
           </Link>
           <div className=" absolute top-0 right-[-41%] bottom-0 w-[9999px] bg-[#27c36e] transform skew-x-[41deg]" />
           <div className=" absolute top-0 right-[-35%] bottom-0 w-[9999px] bg-[#119d3e] transform skew-x-[33deg]" />
         </div>
 
         {/* Desktop menu with submenus */}
-        <div className="hidden items-center lg:flex">
-          <ul className="flex items-center gap-2 xl:gap-4">
-            {NAV_ITEMS.map((item, idx) => {
-              const hasChildren = Array.isArray(item.children) && item.children.length > 0;
-              return (
-                <li key={item.label} className="relative group">
-                  <Link
-                    href={item.href}
-                    className="flex items-center gap-1 px-3 py-2 text-[15px] font-extrabold uppercase tracking-wide text-[#0f3036] hover:text-[#119d3e]"
-                  >
-                    {item.label}
-                    {hasChildren && <ChevronDownIcon className="h-4 w-4 opacity-70 group-hover:opacity-100" />}
-                  </Link>
+        <div className="hidden md:flex space-x-6 justify-center items-center">
+          {NAV_ITEMS.map(({ href, label, children }) => {
+            // Check if the current link is active or if any child is active
+            const isActive = pathname === href || children?.some(child => pathname.startsWith(child.href));
 
-                  {/* dropdown */}
-                  {hasChildren && (
-                    <div
-                      className="invisible absolute left-0 z-20 mt-2 w-56 rounded-xl border border-slate-100 bg-white opacity-0 shadow-lg ring-1 ring-black/5 transition-all group-hover:visible group-hover:opacity-100"
-                      role="menu"
-                    >
-                      <ul className="py-2">
-                        {item.children!.map((c) => (
-                          <li key={c.label}>
+            return (
+              <div key={href} className="relative group">
+                <Link
+                  href={href}
+                  className={ `flex justify-center items-center font-bold ${isActive
+                    ? 'text-[#139460] font-bold' // Active link style (green color + bold)
+                    : 'text-gray-700 hover:text-[#139460]' // Default link style with hover effect
+                    }`}
+                >
+                  {label}
+                  {children && children.length> 0 && (
+                    <ChevronDownIcon className="h-4 w-4 opacity-70 group-hover:opacity-100" />
+                  )}
+                </Link>
+
+                {/* Dropdown for child menu */}
+                {children && children.length > 0 && (
+                  <div
+                    className={`invisible absolute left-0 z-20 mt-2 w-56 rounded-xl border border-slate-100 bg-white opacity-0 shadow-lg ring-1 ring-black/5 transition-all group-hover:visible group-hover:opacity-100`}
+                    role="menu"
+                  >
+                    <ul className="py-2">
+                      {children?.map((child) => {
+                        const isChildActive = pathname === child.href || pathname.startsWith(child.href);
+                        return (
+                          <li key={child.href}>
                             <Link
-                              href={c.href}
-                              className="block px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+                              href={child.href}
+                              className={`block px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 ${isChildActive ? 'text-[#139460]' : ''
+                                }`}
                               role="menuitem"
                             >
-                              {c.label}
+                              {child.label}
                             </Link>
                           </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* Right tools */}

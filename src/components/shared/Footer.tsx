@@ -8,6 +8,7 @@ import img2 from "../../assets/img/bg/gallery-img-1-1.jpg"
 import Image from 'next/image';
 import { HomeIcon, Instagram } from 'lucide-react';
 import Newsletter from '../home/NewsLetter';
+import { usePathname } from 'next/navigation';
 const usefulLeft = [
     { label: 'Help Center', href: '/help' },
     { label: 'About Us', href: '/about-us' },
@@ -33,8 +34,12 @@ const insta = [
 ]; 
 
 export default function Footer() {
+
+    const pathname = usePathname();
+
+  const isHome = pathname === "/";
     return (
-        <footer className="relative overflow-hidden bg-[#052F35]  text-white bg-cover bg-center bg-no-repeat pt-32"
+        <footer className={`relative overflow-hidden bg-[#052F35]  text-white bg-cover bg-center bg-no-repeat ${isHome?'pt-32':'pt-5'} `}
         style={{ backgroundImage: "url('/footer-bg-1-1.jpg')" }}
         >
             {/* <div className="absolute inset-0 bg-[#052F35]" /> */}

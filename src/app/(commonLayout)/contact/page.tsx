@@ -1,9 +1,13 @@
 "use client"
-import MapComponent from '@/components/home/MapComponent';
+// import MapComponent from '@/components/home/MapComponent';
 import PageBanner from '@/components/shared/PageBanner'
 import { Mail, Phone } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import React, { useState } from 'react'
+const MapComponent = dynamic(() => import('@/components/home/MapComponent'), { 
+  ssr: false // Disable SSR for this component
+});
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
