@@ -59,7 +59,10 @@ const VideoGalleryPage = () => {
   return (
     <div className="">
       <PageBanner title="GALLERY" pagePath="Home // Our Videos"></PageBanner>
-      <div className="bg-white max-w-7xl mx-auto px-4">
+      <div
+        className="bg-white max-w-7xl mx-auto px-4 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/client-bg1.jpg')" }}
+      >
         {/* Video Gallery Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 py-6">
           {videos.map((video, index) => (

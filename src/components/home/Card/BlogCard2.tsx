@@ -1,15 +1,16 @@
-import { ArrowRight, Calendar, Link, MessageCircleMore } from 'lucide-react';
-import Image from 'next/image';
-import React, { FC } from 'react';
+import { ArrowRight, Calendar, Link, MessageCircleMore } from "lucide-react";
+import Image from "next/image";
+import React, { FC } from "react";
 
 type BlogPost = {
-    title: string;
-    description: string;
-    category: string;
-    date: string;
-    image: string;
-    link: string;
-    comments: number;
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  image: string;
+  link: string;
+  comments: number;
 };
 
 const BlogCard2 = ({ post }: { post: BlogPost }) => {
@@ -20,9 +21,9 @@ const BlogCard2 = ({ post }: { post: BlogPost }) => {
         <Image
           src={post.image}
           alt={post.title}
-          layout="intrinsic"  
-          width={300}        
-          height={200}        
+          layout="intrinsic"
+          width={300}
+          height={200}
           className="object-cover w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
         />
         <div className="absolute left-0 bottom-0">
@@ -57,8 +58,10 @@ const BlogCard2 = ({ post }: { post: BlogPost }) => {
                 <ArrowRight className="hover:text-white" />
               </div>
             </div>
-            <Link href={post.link}>
-              <p className="text-gray-800 font-semibold hover:text-[#119d3e] inline-block">Read More</p>
+            <Link href={`/blog/${post.id}`}>
+              <p className="text-gray-800 font-semibold hover:text-[#119d3e] inline-block">
+                Read More
+              </p>
             </Link>
           </div>
 

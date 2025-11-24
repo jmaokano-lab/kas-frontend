@@ -55,10 +55,13 @@ const FishGalleryPage = () => {
   return (
     <div>
       <PageBanner title="Gallary" pagePath="Home // Our Gallery"></PageBanner>
-      <div className="bg-white max-w-7xl mx-auto px-4 pt-4">
+      <div
+        className="bg-white max-w-7xl mx-auto px-4 pt-4 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/client-bg1.jpg')" }}
+      >
         {/* Category Filters */}
         <div className="px-4 py-2">
-          <div className="flex space-x-4">
+          <div className="flex-col lg:flex-row space-x-4">
             {categories.map((category) => (
               <button
                 key={category}
