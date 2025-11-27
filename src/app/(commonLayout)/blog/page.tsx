@@ -167,8 +167,9 @@ const BlogPage = () => {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-[#083a3f] hover:text-[#27c36e]">
-                    Pool Cleaning (09)
+                  <a href="#" className="text-[#083a3f] hover:text-[#27c36e] ">
+                    Pool Cleaning{" "}
+                    <span className="flex justify-end items-center">(09)</span>
                   </a>
                 </li>
                 <li>

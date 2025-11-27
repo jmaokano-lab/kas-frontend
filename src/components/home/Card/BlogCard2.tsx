@@ -1,6 +1,6 @@
-import { ArrowRight, Calendar, Link, MessageCircleMore } from "lucide-react";
+import { ArrowRight, Calendar, MessageCircleMore } from "lucide-react";
 import Image from "next/image";
-import React, { FC } from "react";
+import Link from "next/link"; //
 
 type BlogPost = {
   id: string;
@@ -21,7 +21,6 @@ const BlogCard2 = ({ post }: { post: BlogPost }) => {
         <Image
           src={post.image}
           alt={post.title}
-          layout="intrinsic"
           width={300}
           height={200}
           className="object-cover w-full h-full rounded-2xl transition-transform duration-300 group-hover:scale-105"
@@ -38,7 +37,6 @@ const BlogCard2 = ({ post }: { post: BlogPost }) => {
       {/* Post Content Section */}
       <div className="p-4 col-span-2">
         <div className="flex justify-start gap-4">
-          {/* Date and Comments */}
           <div className="flex justify-center gap-1">
             <Calendar size={18} className="text-[#119d3e]" />
             <p className="text-md text-gray-500">{post.date}</p>
@@ -48,24 +46,25 @@ const BlogCard2 = ({ post }: { post: BlogPost }) => {
             <p className="text-md text-gray-500">{post.comments}</p>
           </div>
         </div>
+
         <h3 className="text-lg text-gray-800 font-bold mt-1">{post.title}</h3>
 
         <div className="flex justify-between items-center mt-4">
           {/* Read More Button Section */}
-          <div className="flex justify-center items-center gap-3">
+          <Link
+            href={`/blog/${post.id}`}
+            className="flex items-center gap-3 group/link"
+          >
             <div className="flex justify-center items-center hover:border-[#052F35] border-dashed border-2 rounded-full size-10 border-[#119d3e] p-2">
-              <div className="size-8 rounded-full bg-[#119d3e] hover:bg-[#052F35] m-1 flex justify-center items-center p-2">
-                <ArrowRight className="hover:text-white" />
+              <div className="size-8 rounded-full bg-[#119d3e] group-hover/link:bg-[#052F35] m-1 flex justify-center items-center p-2">
+                <ArrowRight className="text-white" />
               </div>
             </div>
-            <Link href={`/blog/${post.id}`}>
-              <p className="text-gray-800 font-semibold hover:text-[#119d3e] inline-block">
-                Read More
-              </p>
-            </Link>
-          </div>
+            <p className="text-gray-800 font-semibold group-hover/link:text-[#119d3e] inline-block">
+              Read More
+            </p>
+          </Link>
 
-          {/* Divider Line */}
           <div className="w-32 border-1 border-[#a8dfb9] group-hover:border-[#119d3e]"></div>
         </div>
       </div>

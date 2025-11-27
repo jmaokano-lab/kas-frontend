@@ -1,50 +1,62 @@
 "use client";
 
-import { useEffect, useState, useRef } from 'react';
-import Link from 'next/link';
-import { ShoppingCartIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
-import { usePathname } from 'next/navigation';
+import { useEffect, useState, useRef, FormEvent } from "react";
+import Link from "next/link";
+import {
+  ShoppingCartIcon,
+  MagnifyingGlassIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
+import { usePathname, useRouter } from "next/navigation";
 
-
-type NavChild = { label: string; href: string; };
-type NavItem = { label: string; href: string; children?: NavChild[] | undefined };
+type NavChild = { label: string; href: string };
+type NavItem = {
+  label: string;
+  href: string;
+  children?: NavChild[] | undefined;
+};
 
 const NAV_ITEMS: NavItem[] = [
-  { label: 'Home', href: '/' },
+  { label: "Home", href: "/" },
   {
-    label: 'About Us',
-    href: '/aboutUs',
-
+    label: "About Us",
+    href: "/aboutUs",
   },
   {
-    label: 'Products',
-    href: '/products',
+    label: "Products",
+    href: "/products",
   },
   {
-    label: 'Blog',
-    href: '/blog',
+    label: "Service",
+    href: "/service",
   },
-  { label: 'Contact', href: '/contact' },
   {
-    label: 'Gallery', href: '/gallary', children: [
+    label: "Gallery",
+    href: "",
+    children: [
       {
-
-        label: 'Images', href: '/gallary/images'
+        label: "Images",
+        href: "/gallary/images",
       },
       {
-
-        label: 'Videos', href: '/gallary/videos'
+        label: "Videos",
+        href: "/gallary/videos",
       },
-    ]
+    ],
   },
+  {
+    label: "Blog",
+    href: "/blog",
+  },
+  { label: "Contact", href: "/contact" },
 ];
 
 type User = { name: string; email: string; avatarUrl?: string };
 
 export default function Navbar({
-  brand = 'KAS',
+  brand = "KAS",
   cartCount = 3,
-  user = { name: 'John Doe', email: 'john@example.com' },
+  user = { name: "John Doe", email: "john@example.com" },
   onLogout,
 }: {
   brand?: string;
@@ -57,7 +69,45 @@ export default function Navbar({
   const [mobileSub, setMobileSub] = useState<Record<number, boolean>>({});
   const dropdownRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const router = useRouter();
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
+  // Close ONLY when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleToggle = () => {
+    setOpen((prev) => !prev);
+
+    setTimeout(() => {
+      if (inputRef.current) inputRef.current.focus();
+    }, 0);
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const trimmed = query.trim();
+    if (!trimmed) return;
+
+    router.push(`/search?q=${encodeURIComponent(trimmed)}`);
+  };
 
   // Scroll state to change navbar background on scroll
   const [scrolled, setScrolled] = useState(false);
@@ -71,9 +121,9 @@ export default function Navbar({
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -83,12 +133,16 @@ export default function Navbar({
       if (!dropdownRef.current) return;
       if (!dropdownRef.current.contains(e.target as Node)) setMenuOpen(false);
     };
-    document.addEventListener('mousedown', onDocClick);
-    return () => document.removeEventListener('mousedown', onDocClick);
+    document.addEventListener("mousedown", onDocClick);
+    return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
   return (
-    <header className={`bg-white ${scrolled ? 'bg-opacity-95 shadow-md' : 'bg-opacity-100'} sticky top-0 z-50 transition-all`}>
+    <header
+      className={`bg-white ${
+        scrolled ? "bg-opacity-95 shadow-md z-40" : "bg-opacity-100"
+      } sticky top-0 z-50 transition-all`}
+    >
       <nav className="mx-auto flex max-w-7xl items-stretch justify-between px-3 md:pl-2 mr-5">
         {/* Left brand with diagonal slice */}
         <div className="relative flex items-center pr-10">
@@ -96,7 +150,7 @@ export default function Navbar({
             href="/"
             className=" z-[1] flex min-h-[72px] items-center gap-2  px-4 text-white md:px-5"
           >
-            <img src="./kasLogo.png" alt="KAS" className='size-14' />
+            <img src="./kasLogo.png" alt="KAS" className="size-14" />
           </Link>
           <div className=" absolute top-0 right-[-41%] bottom-0 w-[9999px] bg-[#27c36e] transform skew-x-[41deg]" />
           <div className=" absolute top-0 right-[-35%] bottom-0 w-[9999px] bg-[#119d3e] transform skew-x-[33deg]" />
@@ -106,19 +160,22 @@ export default function Navbar({
         <div className="hidden md:flex space-x-6 justify-center items-center">
           {NAV_ITEMS.map(({ href, label, children }) => {
             // Check if the current link is active or if any child is active
-            const isActive = pathname === href || children?.some(child => pathname.startsWith(child.href));
+            const isActive =
+              pathname === href ||
+              children?.some((child) => pathname.startsWith(child.href));
 
             return (
               <div key={href} className="relative group">
                 <Link
                   href={href}
-                  className={ `flex justify-center items-center font-bold ${isActive
-                    ? 'text-[#139460] font-bold' // Active link style (green color + bold)
-                    : 'text-gray-700 hover:text-[#139460]' // Default link style with hover effect
-                    }`}
+                  className={`flex justify-center items-center font-bold ${
+                    isActive
+                      ? "text-[#139460] font-bold" // Active link style (green color + bold)
+                      : "text-gray-700 hover:text-[#139460]" // Default link style with hover effect
+                  }`}
                 >
                   {label}
-                  {children && children.length> 0 && (
+                  {children && children.length > 0 && (
                     <ChevronDownIcon className="h-4 w-4 opacity-70 group-hover:opacity-100" />
                   )}
                 </Link>
@@ -126,18 +183,21 @@ export default function Navbar({
                 {/* Dropdown for child menu */}
                 {children && children.length > 0 && (
                   <div
-                    className={`invisible absolute left-0 z-20 mt-2 w-56 rounded-xl border border-slate-100 bg-white opacity-0 shadow-lg ring-1 ring-black/5 transition-all group-hover:visible group-hover:opacity-100`}
+                    className={`invisible absolute left-0 z-20 mt-2 w-40 rounded-xl border border-slate-100 bg-white opacity-0 shadow-lg ring-1 ring-black/5 transition-all group-hover:duration-500 group-hover:visible group-hover:opacity-100`}
                     role="menu"
                   >
                     <ul className="py-2">
                       {children?.map((child) => {
-                        const isChildActive = pathname === child.href || pathname.startsWith(child.href);
+                        const isChildActive =
+                          pathname === child.href ||
+                          pathname.startsWith(child.href);
                         return (
                           <li key={child.href}>
                             <Link
                               href={child.href}
-                              className={`block px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50 ${isChildActive ? 'text-[#139460]' : ''
-                                }`}
+                              className={`block px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-[#119d3e] hover:text-md hover:duration-300 hover:ease-in-out rounded-r-xl hover:text-white overflow-hidden ${
+                                isChildActive ? "text-[#139460]" : ""
+                              }`}
                               role="menuitem"
                             >
                               {child.label}
@@ -156,14 +216,40 @@ export default function Navbar({
         {/* Right tools */}
         <div className="flex items-center gap-3 md:gap-4">
           <span className="hidden h-7 w-px bg-slate-200 lg:block" />
-          <button
-            aria-label="Search"
-            className="hidden rounded p-2 text-[#0f3036] hover:text-[#119d3e] lg:block"
-          >
-            <MagnifyingGlassIcon className="h-5 w-5" />
-          </button>
+          <div ref={wrapperRef} className="relative hidden lg:block">
+            {/* Search Icon */}
+            <button
+              type="button"
+              aria-label="Search"
+              onClick={handleToggle}
+              className="rounded p-2 text-[#0f3036] hover:text-[#119d3e]"
+            >
+              <MagnifyingGlassIcon className="h-5 w-5" />
+            </button>
 
-          <Link href="/cart" className="relative rounded p-2 text-[#0f3036] hover:text-[#119d3e]">
+            {/* Dropdown Search Field */}
+            {open && (
+              <form
+                onSubmit={handleSubmit}
+                className="absolute right-0 mt-2 flex w-72 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-3 text-sm shadow-lg"
+              >
+                <MagnifyingGlassIcon className="h-4 w-4 text-slate-400" />
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search..."
+                  className="w-full border-none bg-transparent text-[#0f3036] placeholder:text-slate-400 focus:outline-none"
+                />
+              </form>
+            )}
+          </div>
+
+          <Link
+            href="/cart"
+            className="relative rounded p-2 text-[#0f3036] hover:text-[#119d3e]"
+          >
             <ShoppingCartIcon className="h-6 w-6" />
             {cartCount > 0 && (
               <span className="absolute -right-1 -top-1 rounded-full border-2 border-white bg-[#119d3e] px-1.5 text-[11px] font-bold leading-5 text-white">
@@ -181,7 +267,12 @@ export default function Navbar({
               aria-expanded={menuOpen}
             >
               <img
-                src={user.avatarUrl || `https://i.pravatar.cc/100?u=${encodeURIComponent(user.email)}`}
+                src={
+                  user.avatarUrl ||
+                  `https://i.pravatar.cc/100?u=${encodeURIComponent(
+                    user.email
+                  )}`
+                }
                 alt="Profile"
                 className="h-11 w-11 rounded-full object-cover"
               />
@@ -192,8 +283,12 @@ export default function Navbar({
                 className="absolute right-0 z-20 mt-2 w-64 rounded-xl border border-slate-100 bg-white shadow-lg ring-1 ring-black/5"
               >
                 <div className="px-4 py-3">
-                  <p className="truncate text-sm font-bold text-slate-800">{user.name}</p>
-                  <p className="truncate text-xs text-slate-500">{user.email}</p>
+                  <p className="truncate text-sm font-bold text-slate-800">
+                    {user.name}
+                  </p>
+                  <p className="truncate text-xs text-slate-500">
+                    {user.email}
+                  </p>
                 </div>
                 <div className="my-1 h-px bg-slate-100" />
                 <ul className="py-1">
@@ -231,8 +326,17 @@ export default function Navbar({
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
           >
-            <svg className="h-5 w-5 text-slate-700" viewBox="0 0 24 24" fill="none">
-              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            <svg
+              className="h-5 w-5 text-slate-700"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+              />
             </svg>
           </button>
         </div>
@@ -243,7 +347,8 @@ export default function Navbar({
         <div className="border-t border-slate-200 lg:hidden">
           <ul className="mx-auto grid max-w-7xl gap-1 px-3 py-3 md:px-6">
             {NAV_ITEMS.map((item, idx) => {
-              const hasChildren = Array.isArray(item.children) && item.children.length > 0;
+              const hasChildren =
+                Array.isArray(item.children) && item.children.length > 0;
               return (
                 <li key={item.label}>
                   {!hasChildren ? (
@@ -259,17 +364,23 @@ export default function Navbar({
                       <button
                         className="flex w-full items-center justify-between rounded px-3 py-2 text-left text-[15px] font-extrabold uppercase tracking-wide text-[#0f3036] hover:bg-slate-50 hover:text-[#119d3e]"
                         onClick={() =>
-                          setMobileSub((s) => ({ ...s, [idx]: !s[idx] }))}
+                          setMobileSub((s) => ({ ...s, [idx]: !s[idx] }))
+                        }
                         aria-expanded={!!mobileSub[idx]}
                         aria-controls={`submenu-${idx}`}
                       >
                         <span>{item.label}</span>
                         <ChevronDownIcon
-                          className={`h-5 w-5 transition-transform ${mobileSub[idx] ? 'rotate-180' : ''}`}
+                          className={`h-5 w-5 transition-transform ${
+                            mobileSub[idx] ? "rotate-180" : ""
+                          }`}
                         />
                       </button>
                       {mobileSub[idx] && (
-                        <ul id={`submenu-${idx}`} className="mb-2 ml-2 space-y-1 border-l border-slate-200 pl-3">
+                        <ul
+                          id={`submenu-${idx}`}
+                          className="mb-2 ml-2 space-y-1 border-l border-slate-200 pl-3"
+                        >
                           {item.children!.map((c) => (
                             <li key={c.label}>
                               <Link

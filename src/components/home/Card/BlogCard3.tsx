@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 type BlogPost = {
+  id: string;
   title: string;
   description: string;
   category: string;
@@ -15,7 +16,7 @@ type BlogPost = {
 const BlogCard3 = ({ post }: { post: BlogPost }) => {
   return (
     <div>
-      <Link href="/">
+      <Link href={`/blog/${post.id}`}>
         <div className="rounded-2xl shadow-lg overflow-hidden bg-white p-3 group grid grid-cols-3 gap-5 hover:scale-105 duration-500">
           {/* Image Section */}
           <div className="relative rounded-2xl overflow-hidden w-full  col-span-1">

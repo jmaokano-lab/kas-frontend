@@ -35,7 +35,6 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
   return (
     <div className="relative ">
       <div className="bg-gray-300 rounded-2xl p-2  hover:scale-105 duration-300  ">
-
         {/* Image */}
         <div className="relative group w-full h-52 overflow-hidden rounded-t-lg shadow-md">
           <Image
@@ -48,8 +47,10 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
         </div>
 
         {/* Product Info */}
-        <div className="mt-2 p-2 bg-white/50 rounded-b-2xl">
-          <h3 className="text-xl font-semibold text-gray-700">{product.name}</h3>
+        <div className="mt-2 p-2 bg-white/50 rounded-b-2xl h-44">
+          <h3 className="text-xl font-semibold text-gray-700">
+            {product.name}
+          </h3>
           <p className="text-sm text-gray-500 mt-1">{product.description}</p>
 
           {/* Price */}
@@ -64,8 +65,8 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
               href={product.link}
               className="flex items-center justify-center px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
             >
-              <BaggageClaim size={24}  />
-             
+              <BaggageClaim size={24} />
+
               {/* <Tooltip text="Add to card" /> */}
             </Link>
 
@@ -74,8 +75,8 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
               href={product.link}
               className="flex items-center justify-center px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
             >
-             <CircleArrowOutUpRight size={24} />
-              
+              <CircleArrowOutUpRight size={24} />
+
               {/* <Tooltip text="Details" /> */}
             </Link>
           </div>

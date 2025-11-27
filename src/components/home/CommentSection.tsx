@@ -16,7 +16,7 @@ const CommentSection = () => {
       name: "Alex Aster",
       date: "April 27, 2024",
       text: "Concept Gaming Tournament Is Essentially The Same As Any Other Sport Everyone There Is Competing.",
-      avatar: "/images/avatar1.jpg", // Add your image path here
+      avatar: "https://avatar.iran.liara.run/public/39", // Add your image path here
       replies: [], // Initialize replies as an empty array of strings
       showReplyInput: false, // Control the visibility of the reply input
     },
@@ -24,7 +24,7 @@ const CommentSection = () => {
       name: "Emily Blunt",
       date: "April 27, 2024",
       text: "Concept Gaming Tournament Is Essentially The Same As Any Other Sport Everyone There Is Competing.",
-      avatar: "/images/avatar2.jpg", // Add your image path here
+      avatar: "https://avatar.iran.liara.run/public/10", // Add your image path here
       replies: [],
       showReplyInput: false,
     },
@@ -32,7 +32,7 @@ const CommentSection = () => {
       name: "Thomas Shelby",
       date: "April 27, 2024",
       text: "Concept Gaming Tournament Is Essentially The Same As Any Other Sport Everyone There Is Competing.",
-      avatar: "/images/avatar3.jpg", // Add your image path here
+      avatar: "https://avatar.iran.liara.run/public/25", // Add your image path here
       replies: [],
       showReplyInput: false,
     },
@@ -100,9 +100,9 @@ const CommentSection = () => {
             <div className="flex-1">
               <div className="flex justify-between">
                 <h3 className="font-semibold text-white">{comment.name}</h3>
-                <span className="text-sm text-gray-300">{comment.date}</span>
+                <span className="text-xs text-gray-300">{comment.date}</span>
               </div>
-              <p className="text-md text-gray-100 italic mt-2">
+              <p className="text-sm text-gray-100 italic mt-2">
                 {comment.text}
               </p>
 

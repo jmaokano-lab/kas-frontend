@@ -182,7 +182,7 @@ export const BlogCard: FC<{ post: BlogPost }> = ({ post }) => {
                 <ArrowRight className="hover:text-white"></ArrowRight>
               </div>
             </div>
-            <Link href={post.link}>
+            <Link href={`/blog/${post.id}`}>
               <p className="text-gray-800 font-semibold hover:text-[#119d3e]  inline-block">
                 Read More
               </p>

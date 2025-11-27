@@ -131,6 +131,7 @@ const blogPosts: BlogPost[] = [
 
 const BlogPage = ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = use(params);
+  console.log(id);
   const post = blogPosts.find((blog) => blog.id === id);
   if (!post) {
     return <div>Loading...</div>;
@@ -149,7 +150,7 @@ const BlogPage = ({ params }: { params: Promise<{ id: string }> }) => {
           <div className="lg:col-span-3">
             <BlogDetailscard post={post || {}} />
             <div className="mt-3">
-              <CommentSection></CommentSection>
+              {/* <CommentSection></CommentSection> */}
             </div>
           </div>
 

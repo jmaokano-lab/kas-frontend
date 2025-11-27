@@ -2,11 +2,7 @@
 
 import Link from "next/link";
 import { PhoneIcon, ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
-import img from "/footer-bg-1-1.jpg";
-import img2 from "../../assets/img/bg/gallery-img-1-1.jpg";
-import Image from "next/image";
 import { HomeIcon, Instagram } from "lucide-react";
-import Newsletter from "../home/NewsLetter";
 import { usePathname } from "next/navigation";
 const usefulLeft = [
   { label: "Help Center", href: "/help" },
@@ -84,16 +80,6 @@ export default function Footer() {
               <div className="mt-1 font-bold text-[#27c36e]">Call 24/7</div>
             </div>
           </div>
-
-          {/* social */}
-          <div className="mt-8 flex items-center gap-3">
-            <span className="font-semibold">Follow On :</span>
-            <div className="flex gap-3">
-              <Social href="#" label="Facebook" />
-              <Social href="#" label="LinkedIn" />
-              <Social href="#" label="Instagram" />
-            </div>
-          </div>
         </div>
 
         {/* Useful Links (left) */}
@@ -122,7 +108,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Instagram */}
+        {/* Payment*/}
         <div>
           <SectionTitle>Payment</SectionTitle>
           <div className="mt-6 grid grid-cols-3 gap-4">
@@ -138,30 +124,54 @@ export default function Footer() {
               </Link>
             ))}
           </div>
+          {/* social */}
+          <div className="mt-8 flex items-center gap-3">
+            <span className="font-semibold">Follow On :</span>
+            <div className="flex gap-3">
+              <Social href="#" label="Facebook" />
+              <Social href="#" label="LinkedIn" />
+              <Social href="#" label="Instagram" />
+            </div>
+          </div>
         </div>
       </div>
 
       {/* bottom bar */}
-      <div className="relative z-10 border-t border-white/10 bg-[#07353a] h-20">
-        <div className="absolute z-40 left-1 lg:left-7 max-w-7xl mx-auto h-20 w-full flex items-center px-4 md:px-8">
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 text-white/90">
+      <div className="relative z-10 border-t border-white/10 bg-[#07353a] h-16">
+        <div className="absolute z-40 left-1 lg:left-7 max-w-7xl mx-auto h-16 w-full flex items-center px-4 md:px-8">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-4 text-white/90">
             {/* LEFT SIDE */}
-            <p className="text-md lg:text-md font-normal lg:font-semibold">
+            <p className="text-md lg:text-md font-normal lg:font-semibold flex items-center">
               © Copyright {new Date().getFullYear()}
               <span className="text-[#07353a] hover:text-white ml-1">
-                Deelko.com
+                KAS.com
               </span>
               . All rights reserved.
             </p>
+            <div className="w-full flex justify-center">
+              <div className="px-6 py-2">
+                <p className="text-white font-normal text-sm flex items-center gap-2">
+                  Made &nbsp; By{" "}
+                  <Link
+                    href="https://www.deelko.com"
+                    className="font-bold tracking-wide text-[#27c36e]"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Deelko
+                  </Link>
+                </p>
+              </div>
+            </div>
 
             {/* RIGHT SIDE */}
             <div className="flex justify-start lg:justify-end items-center gap-4">
-              <Link href="/privacy" className="hover:text-white">
+              <Link href="/privacyPolicy" className="hover:text-white">
                 Privacy Policy
               </Link>
               <span className="opacity-30">|</span>
-              <Link href="/terms" className="hover:text-white">
-                Terms of Service
+              <Link href="/termsCondition" className="hover:text-white">
+                Terms & Conditions
               </Link>
             </div>
           </div>
