@@ -4,11 +4,12 @@ import Link from "next/link";
 import { PhoneIcon, ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 import { HomeIcon, Instagram } from "lucide-react";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 const usefulLeft = [
   { label: "Help Center", href: "/help" },
   { label: "About Us", href: "/about-us" },
   { label: "Contact Us", href: "/contact" },
-  { label: "Become A Cleaner", href: "/careers" },
+  { label: "Achievement", href: "/achievement" },
   { label: "Blog", href: "/blog" },
 ];
 
@@ -49,7 +50,7 @@ export default function Footer() {
               {/* <svg viewBox="0 0 24 24" className="h-7 w-7" fill="currentColor">
                                 <path d="M9 11l8-8 2 2-8 8H9v-2zM3 21l6-6 2 2-6 6H3v-2z" />
                             </svg> */}
-              <img src="./kasLogo.png" alt="KAS" className="size-14" />
+              <Image src={"/kasLogo.png"} width={44} height={44} alt="logo" />
             </span>
             {/* <span className="text-4xl font-extrabold">Poolito</span> */}
           </div>

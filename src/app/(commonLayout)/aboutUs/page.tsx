@@ -1,4 +1,5 @@
 import EmployeeCard from "@/components/home/Card/EmplyeCard";
+import MissionVision from "@/components/home/MissionVission";
 import PageBanner from "@/components/shared/PageBanner";
 import {
   Fish,
@@ -260,10 +261,11 @@ const AboutUs = () => {
               </div>
             </div>
           </div>
+          <MissionVision></MissionVision>
 
           {/* Values */}
           <div>
-            <div className="text-center mb-12">
+            <div className="text-center mb-12 mt-6">
               <h3 className="text-3xl font-bold text-gray-900 mb-4">
                 Why Choose Us
               </h3>

@@ -1,21 +1,32 @@
 "use client";
 import PageBanner from "@/components/shared/PageBanner";
+import Image from "next/image";
 import { useState } from "react";
 
 const FishGalleryPage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal open/close state
   const [selectedImage, setSelectedImage] = useState<string>("");
+  const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
-  const handleImageClick = (imageSrc: string) => {
-    setSelectedImage(imageSrc); // Set the selected image URL
-    setIsModalOpen(true); // Open the modal
+  const openModal = (index: number) => {
+    setCurrentIndex(index);
+    setIsModalOpen(true);
   };
 
-  // Close modal
   const closeModal = () => {
-    setIsModalOpen(false); // Close the modal
-    setSelectedImage(""); // Reset selected image
+    setIsModalOpen(false);
+    setCurrentIndex(null);
+  };
+
+  const showPrev = () => {
+    if (currentIndex === null) return;
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev! - 1));
+  };
+
+  const showNext = () => {
+    if (currentIndex === null) return;
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev! + 1));
   };
 
   // Categories for filtering
@@ -61,7 +72,8 @@ const FishGalleryPage = () => {
       >
         {/* Category Filters */}
         <div className="px-4 py-2">
-          <div className="flex-col lg:flex-row space-x-4">
+          {/* Centering the category filter buttons */}
+          <div className="flex flex-wrap justify-center space-x-4 space-y-2">
             {categories.map((category) => (
               <button
                 key={category}
@@ -88,39 +100,64 @@ const FishGalleryPage = () => {
                   ? "col-span-2 row-span-2  object-fill h-[368px]"
                   : "transform duration-500 hover:scale-105 h-44"
               } bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer`}
-              // className="bg-white cursor-pointer shadow-lg rounded-lg overflow-hidden transform duration-500 hover:scale-105"
             >
-              <img
+              <Image
                 src={image.src}
                 alt={image.alt}
-                onClick={() => handleImageClick(image.src)}
-                className="w-full h-full  object-cover"
+                width={400}
+                height={300}
+                onClick={() => openModal(index)}
+                className="w-full h-full object-cover"
               />
-              {/* <div className="p-4">
-                <h3 className="text-md text-gray-800 font-medium">
-                  {image.label}
-                </h3>
-              </div> */}
             </div>
           ))}
         </div>
         {/* Modal for Image Preview */}
-        {isModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-4 rounded-lg max-w-2xl w-full">
-              <div className="flex justify-end">
+        {isModalOpen && currentIndex !== null && (
+          <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
+            <div className="relative bg-white p-4 rounded-lg max-w-3xl w-full">
+              {/* Close button */}
+              <button
+                onClick={closeModal}
+                className="absolute top-3 right-3 text-2xl font-bold text-gray-600 hover:text-red-500"
+              >
+                ×
+              </button>
+
+              {/* Slider content */}
+              <div className="flex items-center gap-4">
+                {/* Prev arrow */}
                 <button
-                  onClick={closeModal}
-                  className="text-xl font-bold text-gray-600"
+                  onClick={showPrev}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700"
                 >
-                  X
+                  ‹
+                </button>
+
+                {/* Image */}
+                <div className="flex-1">
+                  <Image
+                    src={filteredImages[currentIndex].src}
+                    alt="Selected"
+                    width={800}
+                    height={600}
+                    className="w-full h-auto max-h-[70vh] object-contain rounded-lg"
+                  />
+                </div>
+
+                {/* Next arrow */}
+                <button
+                  onClick={showNext}
+                  className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700"
+                >
+                  ›
                 </button>
               </div>
-              <img
-                src={selectedImage}
-                alt="Selected"
-                className="w-full h-auto rounded-lg"
-              />
+
+              {/* Small indicator */}
+              <div className="mt-3 text-center text-sm text-gray-500">
+                {currentIndex + 1} / {images.length}
+              </div>
             </div>
           </div>
         )}

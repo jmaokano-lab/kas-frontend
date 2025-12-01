@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Rubik } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import Providers from "@/provider/Provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,15 +28,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return  (
+  return (
     <html lang="en">
-      <body
-        className={`${rubik.variable} ${rubik.className} antialiased`}
-      >
-        {/* <Providers> */}
+      <body className={`${rubik.variable} ${rubik.className} antialiased`}>
+        <Providers>
           <Toaster richColors position="top-center" />
           {children}
-        {/* </Providers> */}
+        </Providers>
       </body>
     </html>
   );

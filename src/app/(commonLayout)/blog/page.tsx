@@ -2,6 +2,7 @@ import { BlogCard } from "@/components/home/Blog";
 import BlogCard1 from "@/components/home/Card/BlogCard1";
 import BlogCard3 from "@/components/home/Card/BlogCard3";
 import PageBanner from "@/components/shared/PageBanner";
+import Link from "next/link";
 
 type BlogPost = {
   id: string;
@@ -152,7 +153,50 @@ const BlogPage = () => {
             className="lg:col-span-2 bg-[#f7f7f7] p-6 rounded-lg shadow-xl h-[900px]"
             style={{ backgroundImage: "url('map-shape-2.png')" }}
           >
-            <h3 className="text-xl font-semibold text-[#083a3f] mb-6">
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold text-[#083a3f] mb-4">
+                Categories
+              </h3>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="#"
+                    className="text-[#083a3f] hover:text-[#27c36e] flex justify-between border-b-2 border-gray-200 "
+                  >
+                    <span> Pool Cleaning</span>{" "}
+                    <span className="flex justify-end items-center">(09)</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-[#083a3f] hover:text-[#27c36e] flex justify-between border-b-2 border-gray-200 "
+                  >
+                    <span>Pools Maintenance</span>
+                    <span>(02)</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-[#083a3f] hover:text-[#303633] flex justify-between border-b-2 border-gray-200 "
+                  >
+                    <span>Sweep Home</span>
+                    <span>(08)</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    className="text-[#083a3f] hover:text-[#27c36e] flex justify-between border-b-2 border-gray-200 "
+                  >
+                    <span>Window Cleaning </span>
+                    <span>(03)</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <h3 className="text-xl font-semibold text-[#083a3f] mb-6 mt-4">
               Recent Posts
             </h3>
             <div className="space-y-4">
@@ -161,54 +205,37 @@ const BlogPage = () => {
               ))}
             </div>
 
-            <div className="mt-8">
-              <h3 className="text-xl font-semibold text-[#083a3f] mb-4">
-                Categories
-              </h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-[#083a3f] hover:text-[#27c36e] ">
-                    Pool Cleaning{" "}
-                    <span className="flex justify-end items-center">(09)</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-[#083a3f] hover:text-[#27c36e]">
-                    Pools Maintenance (02)
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-[#083a3f] hover:text-[#27c36e]">
-                    Sweep Home (08)
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-[#083a3f] hover:text-[#27c36e]">
-                    Window Cleaning (03)
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div className="mt-8">
+            {/* <div className="mt-8">
               <h3 className="text-xl font-semibold text-[#083a3f] mb-4">
                 Tags
               </h3>
               <div className="flex flex-wrap gap-2">
-                <span className="text-[#083a3f] bg-[#f1f1f1] px-3 py-1 rounded-full text-sm">
+                <Link
+                  href={""}
+                  className="text-[#083a3f] hover:bg-[#27c36e] hover:text-white bg-[#f1f1f1] px-3 py-1 rounded-full text-sm"
+                >
                   Cleaning
-                </span>
-                <span className="text-[#083a3f] bg-[#f1f1f1] px-3 py-1 rounded-full text-sm">
+                </Link>
+                <Link
+                  href={""}
+                  className="text-[#083a3f] hover:bg-[#27c36e] hover:text-white bg-[#f1f1f1] px-3 py-1 rounded-full text-sm"
+                >
                   Home
-                </span>
-                <span className="text-[#083a3f] bg-[#f1f1f1] px-3 py-1 rounded-full text-sm">
+                </Link>
+                <Link
+                  href={""}
+                  className="text-[#083a3f] hover:bg-[#27c36e] hover:text-white bg-[#f1f1f1] px-3 py-1 rounded-full text-sm"
+                >
                   Move-In
-                </span>
-                <span className="text-[#083a3f] bg-[#f1f1f1] px-3 py-1 rounded-full text-sm">
+                </Link>
+                <Link
+                  href={""}
+                  className="text-[#083a3f] hover:bg-[#27c36e] hover:text-white bg-[#f1f1f1] px-3 py-1 rounded-full text-sm"
+                >
                   Window
-                </span>
+                </Link>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
