@@ -8,6 +8,10 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { usePathname, useRouter } from "next/navigation";
+import { useUser } from "@/context/UserContext";
+import { logout } from "@/services/AuthService";
+import { protectedRoutes } from "@/contants";
+import { LogIn, LogInIcon, User } from "lucide-react";
 
 type NavChild = { label: string; href: string };
 type NavItem = {
@@ -56,25 +60,22 @@ type User = { name: string; email: string; avatarUrl?: string };
 export default function Navbar({
   brand = "KAS",
   cartCount = 3,
-  user = { name: "John Doe", email: "john@example.com" },
-  onLogout,
 }: {
   brand?: string;
   cartCount?: number;
-  user?: User;
-  onLogout?: () => void;
 }) {
+  const { user, setIsLoading, refetchUser } = useUser();
+  const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSub, setMobileSub] = useState<Record<number, boolean>>({});
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const router = useRouter();
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
-
+  // refetchUser();
   // Close ONLY when clicking outside
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -100,6 +101,8 @@ export default function Navbar({
       if (inputRef.current) inputRef.current.focus();
     }, 0);
   };
+
+  //search bar ============
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -136,6 +139,19 @@ export default function Navbar({
     document.addEventListener("mousedown", onDocClick);
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
+
+  const handleLogOut = () => {
+    console.log("logout");
+    logout();
+    refetchUser();
+    setIsLoading(true);
+    setMenuOpen(false);
+
+    router.push("/");
+    if (protectedRoutes.some((route) => pathname.match(route))) {
+      router.push("/");
+    }
+  };
 
   return (
     <header
@@ -253,71 +269,82 @@ export default function Navbar({
             <ShoppingCartIcon className="h-6 w-6" />
             {cartCount > 0 && (
               <span className="absolute -right-1 -top-1 rounded-full border-2 border-white bg-[#119d3e] px-1.5 text-[11px] font-bold leading-5 text-white">
-                {cartCount}
+                {5}
               </span>
             )}
           </Link>
 
           {/* Profile dropdown */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setMenuOpen((v) => !v)}
-              className="block rounded-full border-2 border-[#119d3e]"
-              aria-haspopup="menu"
-              aria-expanded={menuOpen}
-            >
-              <img
-                src={
-                  user.avatarUrl ||
-                  `https://i.pravatar.cc/100?u=${encodeURIComponent(
-                    user.email
-                  )}`
-                }
-                alt="Profile"
-                className="h-11 w-11 rounded-full object-cover"
-              />
-            </button>
-            {menuOpen && (
-              <div
-                role="menu"
-                className="absolute right-0 z-20 mt-2 w-64 rounded-xl border border-slate-100 bg-white shadow-lg ring-1 ring-black/5"
+          {user ? (
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setMenuOpen((v) => !v)}
+                className="block rounded-full border-2 border-[#119d3e]"
+                aria-haspopup="menu"
+                aria-expanded={menuOpen}
               >
-                <div className="px-4 py-3">
-                  <p className="truncate text-sm font-bold text-slate-800">
-                    {user.name}
-                  </p>
-                  <p className="truncate text-xs text-slate-500">
-                    {user.email}
-                  </p>
+                <img
+                  src={
+                    user?.avatarUrl ||
+                    `https://i.pravatar.cc/100?u=${encodeURIComponent(
+                      user?.email
+                    )}`
+                  }
+                  alt="Profile"
+                  className="h-11 w-11 rounded-full object-cover"
+                />
+              </button>
+              {menuOpen && (
+                <div
+                  role="menu"
+                  className="absolute right-0 z-20 mt-2 w-64 rounded-xl border border-slate-100 bg-white shadow-lg ring-1 ring-black/5"
+                >
+                  <div className="px-4 py-3">
+                    <p className="truncate text-sm font-bold text-slate-800">
+                      {user?.name}
+                    </p>
+                    <p className="truncate text-xs text-slate-500">
+                      {user?.email}
+                    </p>
+                  </div>
+                  <div className="my-1 h-px bg-slate-100" />
+                  <ul className="py-1">
+                    <li>
+                      <Link
+                        href="/dashboard"
+                        className="block px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
+                        role="menuitem"
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        Dashboard
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        className="block w-full px-4 py-2 text-left text-sm font-semibold text-slate-800 hover:bg-slate-50"
+                        role="menuitem"
+                        onClick={() => {
+                          handleLogOut();
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
                 </div>
-                <div className="my-1 h-px bg-slate-100" />
-                <ul className="py-1">
-                  <li>
-                    <Link
-                      href="/dashboard"
-                      className="block px-4 py-2 text-sm font-semibold text-slate-800 hover:bg-slate-50"
-                      role="menuitem"
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <button
-                      className="block w-full px-4 py-2 text-left text-sm font-semibold text-slate-800 hover:bg-slate-50"
-                      role="menuitem"
-                      onClick={() => {
-                        setMenuOpen(false);
-                        onLogout?.();
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          ) : (
+            <div className="text-gray-700">
+              <Link
+                href={"/login"}
+                className="flex justify-center items-center"
+              >
+                <User></User>
+                {/* <p>Login</p> */}
+              </Link>
+            </div>
+          )}
 
           {/* mobile toggler */}
           <button

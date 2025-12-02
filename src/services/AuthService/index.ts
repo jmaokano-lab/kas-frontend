@@ -1,7 +1,8 @@
 "use server"
+import { LoginPayload, PayloadData } from "@/types/User";
 import { cookies } from "next/headers";
 
-export const registerUser = async (userData: React.FormEvent) => {
+export const registerUser = async (userData:PayloadData) => {
   try {
     console.log(userData);
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/signup`, {
@@ -23,10 +24,8 @@ export const registerUser = async (userData: React.FormEvent) => {
   }
 };
 
-export const loginUser = async (userData: {
-  email: string;
-  password: string;
-}) => {
+export const loginUser = async (userData:LoginPayload
+) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
       method: "POST",
@@ -51,23 +50,28 @@ export const loginUser = async (userData: {
 
 export const getCurrentUser = async () => {
   const token = (await cookies()).get("accessToken")?.value;
-  if (!token) return console.log("No token found");
   console.log(token)
+  if (!token) return console.log("No token found");
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/info`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/user`, {    
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
     },
+    credentials: "include",
   });
+  console.log(res)
 
-  if (!res.ok) return null;
+  // if (!res?.statusText) return null;
   const data = await res.json();
 
   return data;
 };
 
+
+
 export const logout = async () => {
-  (await cookies()).delete("access_Token");
+  
+  (await cookies()).delete("accessToken");
 };
 

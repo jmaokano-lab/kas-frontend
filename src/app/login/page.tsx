@@ -1,28 +1,33 @@
 "use client";
 
+import { useUser } from "@/context/UserContext";
 import { getCurrentUser, loginUser } from "@/services/AuthService";
+import { LoginPayload } from "@/types/User";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
 
 export default function LoginPage() {
+  const { user, setIsLoading, setUser } = useUser();
   const [usePhone, setUsePhone] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [usertype, setUsertype] = useState("customer");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get("redirectpath") || "/";
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
 
-    const payload = {
+    const payload: LoginPayload = {
       // only one of these will exist in FormData
       email_or_phone: usePhone ? "phone" : "email",
-      user_type: usertype,
-      email: !usePhone ? (fd.get("email") as string | null) : "",
-      phone: usePhone ? (fd.get("phone") as string | null) : "",
-      password: fd.get("password") as string | null,
+      user_type: usertype ?? null,
+      email: !usePhone ? (fd.get("email") as string | null) ?? null : null,
+      phone: usePhone ? (fd.get("phone") as string | null) ?? null : null,
+      password: (fd.get("password") as string | null) ?? null,
       remember: fd.get("remember") === "on",
     };
 
@@ -32,8 +37,13 @@ export default function LoginPage() {
       console.log("Login response data:", data);
       if (data.result) {
         const user = await getCurrentUser();
+        setUser(user);
         console.log("Current user:", user);
+        if (redirect) {
+          router.push(redirect);
+        }
         router.push("/");
+        // refetchUser();
       } else {
         toast.error("Invalid email or password");
       }

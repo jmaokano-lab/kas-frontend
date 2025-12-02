@@ -2,16 +2,10 @@
 
 import { countryOptions } from "@/data";
 import { registerUser } from "@/services/AuthService";
+import { PayloadData } from "@/types/User";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "sonner";
-
-type CountryOption = {
-  code: string;
-  dialCode: string;
-  label: string;
-  flag: string;
-};
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -27,13 +21,13 @@ export default function RegisterPage() {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
 
-    const fullPhone = useEmail ? null : `${phoneNumber}`;
+    const fullPhone: string | null = useEmail ? null : `${phoneNumber}`;
 
-    const payload = {
+    const payload: PayloadData = {
       name: fd.get("name") as string | null,
       email_or_phone: useEmail ? "email" : "phone",
       phone: fullPhone,
-      email: useEmail ? (fd.get("email") as string | null) : "",
+      email: useEmail ? (fd.get("email") as string | null) : null,
       password: fd.get("password") as string | null,
       password_confirmation: fd.get("password_confirmation") as string | null,
       acceptTerms: fd.get("acceptTerms") === "on",

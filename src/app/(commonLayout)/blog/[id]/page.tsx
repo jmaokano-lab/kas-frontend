@@ -1,10 +1,7 @@
 "use client";
 import BlogCard3 from "@/components/home/Card/BlogCard3";
 import BlogDetailscard from "@/components/home/Card/BlogDetailsCard";
-import CommentSection from "@/components/home/CommentSection";
 import PageBanner from "@/components/shared/PageBanner";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { use } from "react";
 type BlogPost = {
   id: string;
