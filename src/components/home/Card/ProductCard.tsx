@@ -8,10 +8,14 @@ import { FC } from "react";
 type Product = {
   name: string;
   description: string;
-  price: number;
-  image: string;
+  main_price: number;
+  thumbnail_image: string;
   alt: string;
-  link: string;
+  links: {
+    details: string;
+  };
+  slug: string;
+  user_id?: number;
 };
 
 type FeaturedProductProps = {
@@ -38,8 +42,8 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
         {/* Image */}
         <div className="relative group w-full h-52 overflow-hidden rounded-t-lg shadow-md">
           <Image
-            src={product.image}
-            alt={product.alt}
+            src={product?.thumbnail_image}
+            alt={product.name}
             layout="fill"
             objectFit="cover"
             className="transition-transform duration-300 group-hover:scale-110"
@@ -49,20 +53,22 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
         {/* Product Info */}
         <div className="mt-2 p-2 bg-white/50 rounded-b-2xl h-44">
           <h3 className="text-xl font-semibold text-gray-700">
-            {product.name}
+            {product.name.length > 25
+              ? product.name.slice(0, 25) + "…"
+              : product.name}
           </h3>
-          <p className="text-sm text-gray-500 mt-1">{product.description}</p>
+          {/* <p className="text-sm text-gray-500 mt-1">{product.name}</p> */}
 
           {/* Price */}
           <p className="text-lg font-semibold mt-2 text-[#5cd38d]">
-            <span className="text-[#119d3e]">$</span> {product.price}
+            <span className="text-[#119d3e]"></span> {product.main_price}
           </p>
 
           {/* Buttons */}
           <div className="flex justify-between space-x-4 mt-4">
             {/* Button 1: BaggageClaim Icon Button */}
             <Link
-              href={product.link}
+              href={product?.links?.details}
               className="flex items-center justify-center px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
             >
               <BaggageClaim size={24} />
@@ -72,7 +78,11 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
 
             {/* Button 2: CircleArrowOutUpRight Icon Button */}
             <Link
-              href={product.link}
+              href={
+                product.slug
+                  ? `/products/${product.slug}/${product.user_id}`
+                  : "/"
+              }
               className="flex items-center justify-center px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
             >
               <CircleArrowOutUpRight size={24} />

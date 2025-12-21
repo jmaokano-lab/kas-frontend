@@ -5,34 +5,50 @@ const FeaturedProducts = () => {
     {
       name: "Fresh Hilsa Fish",
       description: "Premium quality, fresh catch from the ocean.",
-      price: 25.99,
-      image: "/hilsha.webp", // Place this image in /public folder
+      main_price: 25.99,
+      thumbnail_image: "/hilsha.webp", // Place this thumbnail_image in /public folder
       alt: "Fresh Hilsa Fish",
-      link: "/hilsha.jpg",
+      links: {
+        details: "/hilsha.jpg",
+      },
+
+      slug: "Tuna Steak",
     },
     {
       name: "Frozen Salmon",
       description: "Freshly frozen, high-quality salmon fish ",
-      price: 18.99,
-      image: "/fresh-fish.jpg",
+      main_price: 18.99,
+      thumbnail_image: "/fresh-fish.jpg",
       alt: "Frozen Salmon",
-      link: "/fresh-fish.jpg",
+      links: {
+        details: "/fresh-fish.jpg",
+      },
+
+      slug: "Tuna Steak",
     },
     {
       name: "Shrimp Pack",
       description: "Sweet and tender shrimp, frozen and ready to cook.",
-      price: 15.49,
-      image: "/carp.jpg",
+      main_price: 15.49,
+      thumbnail_image: "/carp.jpg",
       alt: "Shrimp Pack",
-      link: "/carp.jpg",
+      links: {
+        details: "/carp.jpg",
+      },
+
+      slug: "Tuna Steak",
     },
     {
       name: "Tuna Steak",
       description: "Fresh cut tuna steaks, perfect for grilling.",
-      price: 22.75,
-      image: "/tona.jpg",
+      main_price: 22.75,
+      thumbnail_image: "/tona.jpg",
       alt: "Tuna Steak",
-      link: "/tona.jpg",
+      links: {
+        details: "/tona.jpg",
+      },
+
+      slug: "Tuna Steak",
     },
   ];
 

@@ -1,4 +1,8 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    domains: ['kidzbd.org'], //  external image domains here
+  },
   async rewrites() {
     return [
       {
@@ -8,3 +12,6 @@ module.exports = {
     ];
   },
 };
+
+module.exports = nextConfig;
+
