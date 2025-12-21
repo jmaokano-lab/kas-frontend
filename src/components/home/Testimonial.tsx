@@ -1,4 +1,8 @@
+"use client";
+import { useUser } from "@/context/UserContext";
+import { getAllTestimonials } from "@/services/Testimonial";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import Marquee from "react-fast-marquee";
 
 const testimonials = [
@@ -40,6 +44,23 @@ const testimonials = [
 ];
 
 export default function Testimonial() {
+  // const [testimonials, setTestimonials] = useState([]);
+  // const { user, setIsLoading, refetchUser } = useUser();
+
+  console.log(testimonials);
+
+  // useEffect(() => {
+  //   const fetchTestimonials = async () => {
+  //     try {
+  //       const data = await getAllTestimonials();
+  //       setTestimonials(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+
+  //   fetchTestimonials();
+  // }, []);
   return (
     <section
       className="py-16 px-6 bg-[#052F35] text-white bg-cover bg-center"
@@ -60,7 +81,7 @@ export default function Testimonial() {
       {/* Marquee component for smooth scrolling */}
       <Marquee gradient={false} speed={30} direction="left" pauseOnHover>
         {/* Map over testimonials and display */}
-        {testimonials.map((testimonial, index) => (
+        {testimonials?.map((testimonial, index) => (
           <div
             key={index}
             className="bg-[#083a3f] p-6 rounded-lg shadow-xl mx-6 max-w-80 h-[400px]"
@@ -69,8 +90,8 @@ export default function Testimonial() {
             <div className="flex flex-col items-center">
               <div className="w-24 h-24 mb-4 overflow-hidden rounded-full">
                 <Image
-                  src={testimonial.image}
-                  alt={testimonial.name}
+                  src={testimonial?.image}
+                  alt={testimonial?.name}
                   width={96}
                   height={96}
                   className="object-cover"
@@ -80,8 +101,8 @@ export default function Testimonial() {
                 <i />
               </p>
               <p className="text-lg text-center italic">
-                "{testimonial.quote.slice(0, 150)}
-                {testimonial.quote.length > 150 ? "..." : ""}"
+                "{testimonial?.quote.slice(0, 150)}
+                {testimonial?.quote.length > 150 ? "..." : ""}"
               </p>
               <div className="mt-4 text-center">
                 <p className="font-semibold">{testimonial.name}</p>
