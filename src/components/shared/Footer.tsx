@@ -21,11 +21,11 @@ const usefulRight = [
 ];
 
 const insta = [
-  "./american-express.png",
-  "./card.png",
-  "./stripe.png",
-  "./paypal.png",
-  "./visa.png",
+  "/american-express.png",
+  "/card.png",
+  "/stripe.png",
+  "/paypal.png",
+  "/visa.png",
 ];
 
 export default function Footer() {

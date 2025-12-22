@@ -6,7 +6,7 @@ const FeaturedProducts = () => {
       name: "Fresh Hilsa Fish",
       description: "Premium quality, fresh catch from the ocean.",
       main_price: 25.99,
-      thumbnail_image: "/hilsha.webp", // Place this thumbnail_image in /public folder
+      thumbnail_image: "/hilsha.webp",
       alt: "Fresh Hilsa Fish",
       links: {
         details: "/hilsha.jpg",

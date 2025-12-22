@@ -4,19 +4,7 @@ import { BaggageClaim, CircleArrowOutUpRight, Heart } from "lucide-react";
 import Link from "next/link"; // Correct import
 import Image from "next/image";
 import { FC } from "react";
-
-type Product = {
-  name: string;
-  description: string;
-  main_price: number;
-  thumbnail_image: string;
-  alt: string;
-  links: {
-    details: string;
-  };
-  slug: string;
-  user_id?: number;
-};
+import { Product } from "@/types/Product";
 
 type FeaturedProductProps = {
   product: Product;
@@ -42,17 +30,24 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
         {/* Image */}
         <div className="relative group w-full h-52 overflow-hidden rounded-t-lg shadow-md">
           <Image
-            src={product?.thumbnail_image}
-            alt={product.name}
-            layout="fill"
-            objectFit="cover"
-            className="transition-transform duration-300 group-hover:scale-110"
+            src={product?.thumbnail_image || "/placeholder.png"}
+            alt={product?.name || "Product image"}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-110"
           />
+          {/* Wishlist Button */}
+          <button
+            onClick={handleWishlist}
+            className="absolute top-3.5 right-3 bg-white text-[#119d3e] rounded-full p-2 shadow-lg hover:bg-[#119d3e] hover:text-white transition"
+          >
+            <Heart size={20} />
+            {/* <Tooltip text="Add to wishlist" /> */}
+          </button>
         </div>
 
         {/* Product Info */}
-        <div className="mt-2 p-2 bg-white/50 rounded-b-2xl h-44">
-          <h3 className="text-xl font-semibold text-gray-700">
+        <div className="mt-2 p-2 bg-white/50 rounded-b-2xl h-36 relative flex flex-col justify-between">
+          <h3 className="text-lg font-semibold text-gray-700">
             {product.name.length > 25
               ? product.name.slice(0, 25) + "…"
               : product.name}
@@ -65,40 +60,33 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
           </p>
 
           {/* Buttons */}
-          <div className="flex justify-between space-x-4 mt-4">
-            {/* Button 1: BaggageClaim Icon Button */}
-            <Link
-              href={product?.links?.details}
-              className="flex items-center justify-center px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
-            >
-              <BaggageClaim size={24} />
+          <div className="">
+            <div className="flex justify-between items-center  mt-2  ">
+              {/* Button 1: BaggageClaim Icon Button */}
+              <Link
+                href={product?.links?.details}
+                className="flex items-center justify-center px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
+              >
+                <BaggageClaim size={24} />
 
-              {/* <Tooltip text="Add to card" /> */}
-            </Link>
+                {/* <Tooltip text="Add to card" /> */}
+              </Link>
 
-            {/* Button 2: CircleArrowOutUpRight Icon Button */}
-            <Link
-              href={
-                product.slug
-                  ? `/products/${product.slug}/${product.user_id}`
-                  : "/"
-              }
-              className="flex items-center justify-center px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
-            >
-              <CircleArrowOutUpRight size={24} />
+              {/* Button 2: CircleArrowOutUpRight Icon Button */}
+              <Link
+                href={
+                  product.slug
+                    ? `/products/${product.slug}/${product.user_id}`
+                    : "/"
+                }
+                className="flex items-center justify-center ml-8 px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
+              >
+                <CircleArrowOutUpRight size={24} />
 
-              {/* <Tooltip text="Details" /> */}
-            </Link>
+                {/* <Tooltip text="Details" /> */}
+              </Link>
+            </div>
           </div>
-
-          {/* Wishlist Button */}
-          <button
-            onClick={handleWishlist}
-            className="absolute top-5 right-4 bg-white text-[#119d3e] rounded-full p-2 shadow-lg hover:bg-[#119d3e] hover:text-white transition"
-          >
-            <Heart size={20} />
-            {/* <Tooltip text="Add to wishlist" /> */}
-          </button>
         </div>
       </div>
     </div>

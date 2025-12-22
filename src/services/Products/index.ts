@@ -57,6 +57,7 @@ export const getSingleProduct= async (id: string,slug:string) => {
     return Error(error);
   }
 };
+
 //get related product
 
 export const getRelatedProducts= async (slug:string) => {  
@@ -75,4 +76,3 @@ export const getRelatedProducts= async (slug:string) => {
     return Error(error);
   }
 };
-//classified/related-products/{slug}

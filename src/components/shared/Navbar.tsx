@@ -12,6 +12,7 @@ import { useUser } from "@/context/UserContext";
 import { logout } from "@/services/AuthService";
 import { protectedRoutes } from "@/contants";
 import { LogIn, LogInIcon, User } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 type NavChild = { label: string; href: string };
 type NavItem = {
@@ -65,6 +66,7 @@ export default function Navbar({
   cartCount?: number;
 }) {
   const { user, setIsLoading, refetchUser } = useUser();
+  const { itemCount } = useCart();
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -146,7 +148,6 @@ export default function Navbar({
     refetchUser();
     setIsLoading(true);
     setMenuOpen(false);
-
     router.push("/");
     if (protectedRoutes.some((route) => pathname.match(route))) {
       router.push("/");
@@ -267,9 +268,9 @@ export default function Navbar({
             className="relative rounded p-2 text-[#0f3036] hover:text-[#119d3e]"
           >
             <ShoppingCartIcon className="h-6 w-6" />
-            {cartCount > 0 && (
+            {itemCount > 0 && (
               <span className="absolute -right-1 -top-1 rounded-full border-2 border-white bg-[#119d3e] px-1.5 text-[11px] font-bold leading-5 text-white">
-                {5}
+                {itemCount}
               </span>
             )}
           </Link>

@@ -1,3 +1,16 @@
+export type Product = {
+  id:number;
+  name: string;
+  description: string;
+  main_price: number;
+  thumbnail_image: string;
+  alt: string;
+  links: {
+    details: string;
+  };
+  slug: string;
+  user_id?: number;
+};
 export type ProductDetails = {
   id: number;
   user_id: number;

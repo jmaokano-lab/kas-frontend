@@ -2,9 +2,13 @@ import { getRelatedProducts } from "@/services/Products";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function RelatedProducts(slug: string) {
+type RelatedProductsProps = {
+  slug: string;
+};
+
+const RelatedProducts = async ({ slug }: RelatedProductsProps) => {
+  console.log(slug);
   const { data: product } = await getRelatedProducts(slug);
-  console.log(product);
   return (
     <div className="mt-16">
       <h2 className="text-2xl font-bold mb-6">Related Products</h2>
@@ -33,4 +37,5 @@ export default async function RelatedProducts(slug: string) {
       </div>
     </div>
   );
-}
+};
+export default RelatedProducts;

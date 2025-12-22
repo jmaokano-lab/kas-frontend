@@ -1,6 +1,8 @@
 import ProductGallery from "@/components/home/Products/ProductGallery";
-import RatingStars from "@/components/home/Products/RatingStar";
+import { ProductInfo } from "@/components/home/Products/ProductInfo";
+
 import RelatedProducts from "@/components/home/Products/RelatedProduct";
+import PageBanner from "@/components/shared/PageBanner";
 
 import { getSingleProduct } from "@/services/Products";
 
@@ -16,52 +18,37 @@ export default async function ProductPage({
 }: {
   params: { slug: string; id: string };
 }) {
-  //   console.log(params);
   const { slug, id } = await params;
 
   const { data: product } = await getSingleProduct(id, slug);
-  console.log(product.name);
+  console.log("Details", product);
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      {/* Product Section */}
-      <div className="grid lg:grid-cols-2 gap-10">
-        {/* Image Gallery */}
-        <ProductGallery images={product?.photos} />
+    <div>
+      <PageBanner
+        title="Details"
+        pagePath="Home // Our Product Details"
+      ></PageBanner>
+      <div
+        className="  pt-4 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/client-bg1.jpg')" }}
+      >
+        <div className="max-w-6xl mx-auto mt-8">
+          {/* Product Section */}
+          <div className=" grid lg:grid-cols-5 gap-10">
+            <div className="col-span-2">
+              {/* Image Gallery */}
+              <ProductGallery images={product[0]?.photos} />
+            </div>
 
-        {/* Product Info */}
-        <div>
-          <h1 className="text-3xl font-bold mb-3">{product.name}</h1>
-
-          <RatingStars rating={product.rating} count={product.rating_count} />
-
-          <p className="text-2xl font-semibold text-primary my-4">
-            {product.main_price}
-          </p>
-
-          <p
-            className="text-gray-600 mb-6"
-            dangerouslySetInnerHTML={{
-              __html: product.description || "<p>No description available</p>",
-            }}
-          />
-
-          <div className="flex gap-4">
-            <button className="px-6 py-3 bg-primary text-white rounded-lg hover:opacity-90">
-              Add to Cart
-            </button>
-
-            <button className="px-6 py-3 border rounded-lg">Buy Now</button>
+            {/* Product Info */}
+            <ProductInfo product={product}></ProductInfo>
           </div>
 
-          <div className="mt-6 text-sm text-gray-500">
-            Stock: {product.current_stock} {product.unit}
-          </div>
+          {/* Related Products */}
+          <RelatedProducts slug={slug} />
         </div>
       </div>
-
-      {/* Related Products */}
-      <RelatedProducts slug={product.slug} />
     </div>
   );
 }

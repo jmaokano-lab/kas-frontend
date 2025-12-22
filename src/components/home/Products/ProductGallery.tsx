@@ -7,13 +7,8 @@ type ImageType = {
   path: string;
 };
 
-export default function ProductGallery({
-  images,
-}: {
-  images?: ImageType[]; // made optional
-}) {
-  // Initialize active safely
-  const [active, setActive] = useState<string>("");
+export default function ProductGallery({ images }: { images?: ImageType[] }) {
+  const [active, setActive] = useState<string | null>(null);
 
   useEffect(() => {
     if (images && images.length > 0) {
@@ -24,25 +19,36 @@ export default function ProductGallery({
   if (!images || images.length === 0) {
     return (
       <div className="w-full h-96 flex items-center justify-center border rounded-lg text-gray-400">
-        No Images
+        No Images Available
       </div>
     );
   }
 
   return (
     <div>
+      {/* Main Image */}
       <div className="relative w-full h-96 rounded-lg overflow-hidden border">
-        <Image src={active} alt="Product" fill className="object-contain" />
+        {active && (
+          <Image
+            src={active}
+            alt="Product image"
+            fill
+            className="object-contain"
+            priority
+          />
+        )}
       </div>
 
+      {/* Thumbnails */}
       <div className="flex gap-3 mt-4">
         {images.map((img, i) => (
-          <div
+          <button
             key={i}
-            className={`relative w-20 h-20 border rounded cursor-pointer ${
+            type="button"
+            onClick={() => setActive(img.path)}
+            className={`relative w-20 h-20 border rounded overflow-hidden ${
               active === img.path ? "border-primary" : ""
             }`}
-            onClick={() => setActive(img.path)}
           >
             <Image
               src={img.path}
@@ -50,7 +56,7 @@ export default function ProductGallery({
               fill
               className="object-cover"
             />
-          </div>
+          </button>
         ))}
       </div>
     </div>

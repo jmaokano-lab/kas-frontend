@@ -19,7 +19,7 @@ const Products = async ({ searchParams }: { searchParams: SearchParams }) => {
       <PageBanner title="Products" pagePath="Home // Our Products"></PageBanner>
 
       <div
-        className="bg-white max-w-7xl mx-auto px-4 pt-4 bg-cover bg-center bg-no-repeat"
+        className="bg-white max-w-7xl mx-auto  pt-4 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/client-bg1.jpg')" }}
       >
         <div className="grid grid-cols-12 gap-6 px-6 py-8">
