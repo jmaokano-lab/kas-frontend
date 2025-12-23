@@ -3,6 +3,8 @@ export type Product = {
   name: string;
   description: string;
   main_price: number;
+  calculable_price:number;
+
   thumbnail_image: string;
   alt: string;
   links: {

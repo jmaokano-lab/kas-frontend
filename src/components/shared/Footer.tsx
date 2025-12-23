@@ -21,11 +21,11 @@ const usefulRight = [
 ];
 
 const insta = [
-  "/american-express.png",
-  "/card.png",
-  "/stripe.png",
-  "/paypal.png",
-  "/visa.png",
+  "/zelle-logo.webp",
+  // "/card.png",
+  // "/stripe.png",
+  // "/paypal.png",
+  // "/visa.png",
 ];
 
 export default function Footer() {
@@ -115,11 +115,11 @@ export default function Footer() {
           <div className="mt-6 grid grid-cols-3 gap-4">
             {insta.map((src, i) => (
               <Link key={i} href="#" className="group block">
-                <div className="rounded-xl   transition group-hover:scale-[1.02] border-2 border-[#27c36e] px-1">
+                <div className="rounded-xl   transition group-hover:scale-[1.02] border-2 border-[#27c36e] ">
                   <img
                     src={src}
                     alt={`Instagram ${i + 1}`}
-                    className="h-12 w-full rounded-lg object-cover md:h-12 lg:h-14 "
+                    className="h-10 w-full rounded-lg object-cover md:h-12 lg:h-[72px] py-1.5 "
                   />
                 </div>
               </Link>

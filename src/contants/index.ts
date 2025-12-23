@@ -2,7 +2,7 @@ export const protectedRoutes = [
   "/login",
   "/create-shop",
   "/admin",
-  "/tutor/bookingRequest",
+  "/cart",
   "/tutor/manageProfile",
   "/tutor/earning",
   "/tutor/subjectManagement",

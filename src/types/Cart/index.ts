@@ -7,9 +7,9 @@ export interface CartItem {
 }
 
 export interface ShippingAddress {
-  fullName: string;
-  phone: string;
-  address: string;
-  city: string;
-  postalCode: string;
+ FullName: string;
+    Phone: string;
+    Address: string;
+    City: string;
+    PostalCode: string;
 }

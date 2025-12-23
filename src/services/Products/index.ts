@@ -63,7 +63,7 @@ export const getSingleProduct= async (id: string,slug:string) => {
 export const getRelatedProducts= async (slug:string) => {  
   
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/classified/related-products/${slug}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/related-products/${slug}`, {
       method: "GET",
        cache: "no-store" 
       

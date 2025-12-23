@@ -17,7 +17,7 @@ export default function PromoCode() {
       />
       <button
         onClick={() => applyPromo(code)}
-        className="bg-[#119d3e] text-white px-4"
+        className="bg-[#119d3e] text-white px-4 cursor-pointer"
       >
         Apply
       </button>

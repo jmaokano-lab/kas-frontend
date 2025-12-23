@@ -2,11 +2,19 @@
 
 import PromoCode from "@/components/home/Cart/PromoCode";
 import ShippingAddress from "@/components/home/Cart/ShippingAddress";
+import ShippingChargeInput from "@/components/home/Cart/ShippingCharge";
 import PageBanner from "@/components/shared/PageBanner";
 import { useCart } from "@/context/CartContext";
 
 export default function CartPage() {
-  const { items, updateQty, removeFromCart, total } = useCart();
+  const {
+    items,
+    updateQty,
+    removeFromCart,
+    total,
+    shippingCharge,
+    grandTotal,
+  } = useCart();
 
   return (
     <div>
@@ -19,7 +27,10 @@ export default function CartPage() {
           {/* Items */}
           <div className="md:col-span-2 space-y-4">
             {items.map((item) => (
-              <div key={item.id} className="flex gap-4 border p-4">
+              <div
+                key={item.id}
+                className="flex gap-4 border rounded-xl p-4 bg-black/20 hover:scale-105 duration-300 ease-in-out"
+              >
                 <img src={item.image} className="h-20 w-20" />
                 <div className="flex-1">
                   <h3>{item.name}</h3>
@@ -27,7 +38,7 @@ export default function CartPage() {
                     type="number"
                     value={item.quantity}
                     onChange={(e) => updateQty(item.id, Number(e.target.value))}
-                    className="border w-20"
+                    className="border rounded-xl text-center w-20"
                   />
                   <button
                     onClick={() => removeFromCart(item.id)}
@@ -36,16 +47,23 @@ export default function CartPage() {
                     Remove
                   </button>
                 </div>
+                <div>৳{item.price}</div>
               </div>
             ))}
           </div>
 
           {/* Summary */}
-          <div className="space-y-6 border p-6">
+          <div className="space-y-6 border p-6 bg-black/20 rounded-xl">
             <PromoCode />
             <ShippingAddress />
-            <div className="text-xl font-bold">Total: ৳{total}</div>
-            <button className="bg-green-600 text-white w-full py-3">
+            <ShippingChargeInput></ShippingChargeInput>
+            <p>Subtotal: ৳{total.toFixed(2)}</p>
+            <p>Shipping: ৳{shippingCharge.toFixed(2)}</p>
+            <hr />
+            <p className="font-bold text-[#119d3e]">
+              Grand Total: ৳{grandTotal.toFixed(2)}
+            </p>
+            <button className="bg-green-600 text-white w-full py-3 cursor-pointer  hover:transform hover:scale-105 duration-300 ease-in-out hover:rounded-2xl">
               Checkout
             </button>
           </div>

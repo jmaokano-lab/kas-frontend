@@ -7,8 +7,8 @@ type RelatedProductsProps = {
 };
 
 const RelatedProducts = async ({ slug }: RelatedProductsProps) => {
-  console.log(slug);
   const { data: product } = await getRelatedProducts(slug);
+  console.log("related slug", product);
   return (
     <div className="mt-16">
       <h2 className="text-2xl font-bold mb-6">Related Products</h2>
@@ -31,7 +31,7 @@ const RelatedProducts = async ({ slug }: RelatedProductsProps) => {
 
             <h3 className="mt-3 font-semibold truncate">{p.name}</h3>
 
-            <p className="text-primary font-bold">{p.main_price}</p>
+            <p className="text-[#119d3e] font-bold">{p.unit_price}</p>
           </Link>
         ))}
       </div>

@@ -58,15 +58,9 @@ const NAV_ITEMS: NavItem[] = [
 
 type User = { name: string; email: string; avatarUrl?: string };
 
-export default function Navbar({
-  brand = "KAS",
-  cartCount = 3,
-}: {
-  brand?: string;
-  cartCount?: number;
-}) {
+export default function Navbar() {
   const { user, setIsLoading, refetchUser } = useUser();
-  const { itemCount } = useCart();
+  const { itemCount, clearCart } = useCart();
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -142,16 +136,17 @@ export default function Navbar({
     return () => document.removeEventListener("mousedown", onDocClick);
   }, []);
 
-  const handleLogOut = () => {
-    console.log("logout");
-    logout();
+  const handleLogOut = async () => {
+    await logout();
     refetchUser();
     setIsLoading(true);
     setMenuOpen(false);
+    console.log("logout");
     router.push("/");
     if (protectedRoutes.some((route) => pathname.match(route))) {
       router.push("/");
     }
+    clearCart();
   };
 
   return (

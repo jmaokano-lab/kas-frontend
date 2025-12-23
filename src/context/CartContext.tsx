@@ -7,14 +7,19 @@ interface CartContextType {
   items: CartItem[];
   promoCode: string | null;
   discount: number;
+  shippingCharge: number;
   shippingAddress: ShippingAddress | null;
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: number) => void;
   updateQty: (id: number, qty: number) => void;
   applyPromo: (code: string) => void;
   setShippingAddress: (address: ShippingAddress) => void;
+  setShippingCharge: (charge: number) => void;
   total: number;
+  grandTotal: number;
   itemCount: number;
+  buyNow: (item: CartItem) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -23,10 +28,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [promoCode, setPromoCode] = useState<string | null>(null);
   const [discount, setDiscount] = useState(0);
+  const [shippingCharge, setShippingCharge] = useState(0);
   const [shippingAddress, setShippingAddress] =
     useState<ShippingAddress | null>(null);
 
-  // Persist cart
+  /* Persist cart */
   useEffect(() => {
     const stored = localStorage.getItem("cart");
     if (stored) setItems(JSON.parse(stored));
@@ -60,10 +66,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const applyPromo = (code: string) => {
-    // demo promo logic
     if (code === "SAVE10") {
       setPromoCode(code);
-      setDiscount(0.1); // 10%
+      setDiscount(0.1);
     } else {
       setPromoCode(null);
       setDiscount(0);
@@ -73,7 +78,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const total =
     items.reduce((sum, i) => sum + i.price * i.quantity, 0) * (1 - discount);
 
-  const itemCount = items.reduce((total, item) => total + item.quantity, 0);
+  const grandTotal = total + shippingCharge;
+
+  const itemCount = items.reduce((sum, i) => sum + i.quantity, 0);
+
+  const buyNow = (item: CartItem) => {
+    setItems([item]);
+  };
+
+  const clearCart = () => {
+    setItems([]);
+    setPromoCode(null);
+    setDiscount(0);
+    setShippingAddress(null);
+    localStorage.removeItem("cart");
+  };
 
   return (
     <CartContext.Provider
@@ -81,14 +100,19 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         items,
         promoCode,
         discount,
+        shippingCharge,
         shippingAddress,
         addToCart,
         removeFromCart,
         updateQty,
         applyPromo,
         setShippingAddress,
+        setShippingCharge,
         total,
+        grandTotal,
         itemCount,
+        buyNow,
+        clearCart,
       }}
     >
       {children}

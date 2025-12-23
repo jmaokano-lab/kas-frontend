@@ -3,13 +3,15 @@
 import RatingStars from "@/components/home/Products/RatingStar";
 import { useCart } from "@/context/CartContext";
 import { ProductDetails } from "@/types/Product";
+import { useRouter } from "next/navigation";
 
 type ProductInfoProps = {
   product: ProductDetails[];
 };
 
 export const ProductInfo = ({ product }: ProductInfoProps) => {
-  const { addToCart } = useCart();
+  const { addToCart, buyNow } = useCart();
+  const router = useRouter();
   const item = product[0]; // extract once
 
   if (!item) return null;
@@ -47,7 +49,19 @@ export const ProductInfo = ({ product }: ProductInfoProps) => {
           Add to Cart
         </button>
 
-        <button className="px-6 py-3 border rounded-lg border-[#119d3e] cursor-pointer">
+        <button
+          className="px-6 py-3 border rounded-lg border-[#119d3e] cursor-pointer"
+          onClick={() => {
+            buyNow({
+              id: item.id,
+              name: item.name,
+              price: item.calculable_price,
+              image: item.thumbnail_image,
+              quantity: 1,
+            });
+            router.push("/cart");
+          }}
+        >
           Buy Now
         </button>
       </div>

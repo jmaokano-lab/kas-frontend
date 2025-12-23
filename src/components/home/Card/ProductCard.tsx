@@ -5,6 +5,7 @@ import Link from "next/link"; // Correct import
 import Image from "next/image";
 import { FC } from "react";
 import { Product } from "@/types/Product";
+import { useCart } from "@/context/CartContext";
 
 type FeaturedProductProps = {
   product: Product;
@@ -19,6 +20,7 @@ const Tooltip = ({ text }: { text: string }) => {
 };
 
 const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
+  const { addToCart } = useCart();
   const handleWishlist = () => {
     // Add to wishlist functionality (you can customize this)
     console.log(`${product.name} added to wishlist!`);
@@ -63,14 +65,22 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
           <div className="">
             <div className="flex justify-between items-center  mt-2  ">
               {/* Button 1: BaggageClaim Icon Button */}
-              <Link
-                href={product?.links?.details}
+              <button
+                onClick={() =>
+                  addToCart({
+                    id: product.id,
+                    name: product.name,
+                    price: product.calculable_price,
+                    image: product.thumbnail_image,
+                    quantity: 1,
+                  })
+                }
                 className="flex items-center justify-center px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
               >
                 <BaggageClaim size={24} />
 
                 {/* <Tooltip text="Add to card" /> */}
-              </Link>
+              </button>
 
               {/* Button 2: CircleArrowOutUpRight Icon Button */}
               <Link
