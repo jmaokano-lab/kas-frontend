@@ -5,6 +5,7 @@ import ShippingAddress from "@/components/home/Cart/ShippingAddress";
 import ShippingChargeInput from "@/components/home/Cart/ShippingCharge";
 import PageBanner from "@/components/shared/PageBanner";
 import { useCart } from "@/context/CartContext";
+import { useUser } from "@/context/UserContext";
 
 export default function CartPage() {
   const {
@@ -15,6 +16,9 @@ export default function CartPage() {
     shippingCharge,
     grandTotal,
   } = useCart();
+
+  const { user } = useUser();
+  console.log(user);
 
   return (
     <div>
@@ -50,12 +54,14 @@ export default function CartPage() {
                 <div>৳{item.price}</div>
               </div>
             ))}
+
+            <p className="text-2xl font font-semibold">Shipping Address :</p>
+            {user?.address !== "null" ? <ShippingAddress /> : `${user.address}`}
           </div>
 
           {/* Summary */}
           <div className="space-y-6 border p-6 bg-black/20 rounded-xl">
             <PromoCode />
-            <ShippingAddress />
             <ShippingChargeInput></ShippingChargeInput>
             <p>Subtotal: ৳{total.toFixed(2)}</p>
             <p>Shipping: ৳{shippingCharge.toFixed(2)}</p>

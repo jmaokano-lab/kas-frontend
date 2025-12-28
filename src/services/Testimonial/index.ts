@@ -1,14 +1,13 @@
 export const getAllTestimonials = async () => {
   try {
-    let url = `${process.env.NEXT_PUBLIC_BASE_API}/testimonial`;   
-    const res = await fetch(url, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/testimonial`, {
       credentials: "include",
     });
     const data = await res.json();
-    console.log("serverHooks",data)
+    console.log("testimonial", data);
     return data;
   } catch (error) {
-    console.error("Error fetching blogs:", error);
+    console.error("Error fetching testimonial:", error);
     return null;
   }
 };

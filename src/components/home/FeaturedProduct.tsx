@@ -1,56 +1,61 @@
 import ProductCard from "./Card/ProductCard";
 import img1 from "../../assets/img/bg/client-bg1.jpg";
-const FeaturedProducts = () => {
-  const products = [
-    {
-      name: "Fresh Hilsa Fish",
-      description: "Premium quality, fresh catch from the ocean.",
-      main_price: 25.99,
-      thumbnail_image: "/hilsha.webp",
-      alt: "Fresh Hilsa Fish",
-      links: {
-        details: "/hilsha.jpg",
-      },
+import { Product } from "@/types/Product";
 
-      slug: "Tuna Steak",
-    },
-    {
-      name: "Frozen Salmon",
-      description: "Freshly frozen, high-quality salmon fish ",
-      main_price: 18.99,
-      thumbnail_image: "/fresh-fish.jpg",
-      alt: "Frozen Salmon",
-      links: {
-        details: "/fresh-fish.jpg",
-      },
+interface Props {
+  products: Product[];
+}
+const FeaturedProducts = ({ products }: Props) => {
+  // const products = [
+  //   {
+  //     name: "Fresh Hilsa Fish",
+  //     description: "Premium quality, fresh catch from the ocean.",
+  //     main_price: 25.99,
+  //     thumbnail_image: "/hilsha.webp",
+  //     alt: "Fresh Hilsa Fish",
+  //     links: {
+  //       details: "/hilsha.jpg",
+  //     },
 
-      slug: "Tuna Steak",
-    },
-    {
-      name: "Shrimp Pack",
-      description: "Sweet and tender shrimp, frozen and ready to cook.",
-      main_price: 15.49,
-      thumbnail_image: "/carp.jpg",
-      alt: "Shrimp Pack",
-      links: {
-        details: "/carp.jpg",
-      },
+  //     slug: "Tuna Steak",
+  //   },
+  //   {
+  //     name: "Frozen Salmon",
+  //     description: "Freshly frozen, high-quality salmon fish ",
+  //     main_price: 18.99,
+  //     thumbnail_image: "/fresh-fish.jpg",
+  //     alt: "Frozen Salmon",
+  //     links: {
+  //       details: "/fresh-fish.jpg",
+  //     },
 
-      slug: "Tuna Steak",
-    },
-    {
-      name: "Tuna Steak",
-      description: "Fresh cut tuna steaks, perfect for grilling.",
-      main_price: 22.75,
-      thumbnail_image: "/tona.jpg",
-      alt: "Tuna Steak",
-      links: {
-        details: "/tona.jpg",
-      },
+  //     slug: "Tuna Steak",
+  //   },
+  //   {
+  //     name: "Shrimp Pack",
+  //     description: "Sweet and tender shrimp, frozen and ready to cook.",
+  //     main_price: 15.49,
+  //     thumbnail_image: "/carp.jpg",
+  //     alt: "Shrimp Pack",
+  //     links: {
+  //       details: "/carp.jpg",
+  //     },
 
-      slug: "Tuna Steak",
-    },
-  ];
+  //     slug: "Tuna Steak",
+  //   },
+  //   {
+  //     name: "Tuna Steak",
+  //     description: "Fresh cut tuna steaks, perfect for grilling.",
+  //     main_price: 22.75,
+  //     thumbnail_image: "/tona.jpg",
+  //     alt: "Tuna Steak",
+  //     links: {
+  //       details: "/tona.jpg",
+  //     },
+
+  //     slug: "Tuna Steak",
+  //   },
+  // ];
 
   return (
     <section
@@ -72,7 +77,7 @@ const FeaturedProducts = () => {
 
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {products.map((product) => (
+          {products.slice(0, 4).map((product) => (
             <ProductCard key={product.name} product={product} />
           ))}
         </div>

@@ -17,7 +17,7 @@ const RelatedProducts = async ({ slug }: RelatedProductsProps) => {
         {product?.slice(0, 4).map((p: any) => (
           <Link
             key={p.id}
-            href={`/products/${p.slug}/${p.user_id}`}
+            href={`/products/${p.slug}`}
             className="border rounded-lg p-3 hover:shadow-lg"
           >
             <div className="relative w-full h-48">

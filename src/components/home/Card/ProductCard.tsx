@@ -11,14 +11,6 @@ type FeaturedProductProps = {
   product: Product;
 };
 
-const Tooltip = ({ text }: { text: string }) => {
-  return (
-    <div className="absolute -left-1/2 transform translate-x-1/3 -bottom-full mb-2 p-2 text-sm text-[#119d3e]   opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-      {text}
-    </div>
-  );
-};
-
 const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
   const { addToCart } = useCart();
   const handleWishlist = () => {
@@ -84,11 +76,7 @@ const ProductCard: FC<FeaturedProductProps> = ({ product }) => {
 
               {/* Button 2: CircleArrowOutUpRight Icon Button */}
               <Link
-                href={
-                  product.slug
-                    ? `/products/${product.slug}/${product.user_id}`
-                    : "/"
-                }
+                href={product.slug ? `/products/${product.slug}` : "/"}
                 className="flex items-center justify-center ml-8 px-4 py-2 text-[#119d3e] rounded-lg hover:bg-[#0d7b2f] hover:text-white transition duration-300 group relative"
               >
                 <CircleArrowOutUpRight size={24} />

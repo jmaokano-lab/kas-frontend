@@ -17,14 +17,14 @@ export default async function ProductPage({
 }: {
   params: Record<string, string | undefined>;
 }) {
-  const { slug, id } = await params;
+  const { slug } = await params;
 
-  if (!slug || !id) {
+  if (!slug) {
     return <div className="text-center py-20">Invalid product URL</div>;
   }
-  console.log("Server params:", slug, id);
+  console.log("Server params:", slug);
 
-  const { data: product } = await getSingleProduct(id, slug);
+  const { data: product } = await getSingleProduct(slug);
   console.log("Details", product);
   const singleProduct = product?.[0];
   const categorySlug = product?.[0].category[0];

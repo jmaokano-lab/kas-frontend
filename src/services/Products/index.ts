@@ -24,7 +24,9 @@ export const getAllProducts = async (
     }
 
     // Construct URL with string conversion
-    const url = `${process.env.NEXT_PUBLIC_BASE_API}/products?page=${page?.toString() || "1"}&limit=${limit?.toString() || "10"}&${params}`;
+    const url = `${process.env.NEXT_PUBLIC_BASE_API}/products?page=${
+      page?.toString() || "1"
+    }&limit=${limit?.toString() || "10"}&${params}`;
 
     const res = await fetch(url, {
       next: {
@@ -41,17 +43,18 @@ export const getAllProducts = async (
 
 //get single product
 
-export const getSingleProduct= async (id: string,slug:string) => {  
-  
+export const getSingleProduct = async (slug: string) => {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/products/${slug}/${id}`, {
-      method: "GET",
-       cache: "no-store" 
-      
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/products/${slug}`,
+      {
+        method: "GET",
+        cache: "no-store",
+      }
+    );
 
     const datas = await res.json();
-    // console.log(datas);
+    console.log(datas);
     return datas;
   } catch (error: any) {
     return Error(error);
@@ -60,14 +63,17 @@ export const getSingleProduct= async (id: string,slug:string) => {
 
 //get related product
 
-export const getRelatedProducts= async (slug:string) => {  
-  
+export const getRelatedProducts = async (slug: string) => {
+  console.log("======================Slug==========================");
+  console.log(slug);
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/related-products/${slug}`, {
-      method: "GET",
-       cache: "no-store" 
-      
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/related-products/${slug}`,
+      {
+        method: "GET",
+        cache: "no-store",
+      }
+    );
 
     const datas = await res.json();
     // console.log(datas);
