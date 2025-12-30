@@ -13,7 +13,7 @@ export default function PromoCode() {
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Promo code"
-        className="border p-2 w-full"
+        className="bg-black/20  p-2 w-full"
       />
       <button
         onClick={() => applyPromo(code)}

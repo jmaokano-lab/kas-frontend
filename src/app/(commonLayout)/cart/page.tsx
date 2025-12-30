@@ -1,13 +1,20 @@
 "use client";
 
+import PaymentMethod from "@/components/home/Cart/PaymentMethod";
 import PromoCode from "@/components/home/Cart/PromoCode";
 import ShippingAddress from "@/components/home/Cart/ShippingAddress";
 import ShippingChargeInput from "@/components/home/Cart/ShippingCharge";
 import PageBanner from "@/components/shared/PageBanner";
-import { useCart } from "@/context/CartContext";
+import { Option, useCart } from "@/context/CartContext";
 import { useUser } from "@/context/UserContext";
+import { getAllCountries } from "@/services/Checkout";
+import { useEffect, useState } from "react";
 
-export default function CartPage() {
+const CartPage = () => {
+  const [countries, setCountries] = useState<Option[]>([]);
+  const [states, setStates] = useState<Option[]>([]);
+  const [cities, setCities] = useState<Option[]>([]);
+  const [loading, setLoading] = useState(true);
   const {
     items,
     updateQty,
@@ -15,7 +22,35 @@ export default function CartPage() {
     total,
     shippingCharge,
     grandTotal,
+    // countries,
+    // states,
+    // cities,
+    // loading,
   } = useCart();
+  useEffect(() => {
+    const loadCartData = async () => {
+      try {
+        const [
+          countriesRes,
+          //  statesRes, citiesRes
+        ] = await Promise.all([
+          getAllCountries(),
+          // getAllState(),
+          // getAllCities(),
+        ]);
+
+        setCountries(countriesRes);
+        // setStates(statesRes);
+        // setCities(citiesRes);
+      } catch (error) {
+        console.error("Failed to load cart data", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCartData();
+  }, []);
 
   const { user } = useUser();
   console.log(user);
@@ -27,9 +62,9 @@ export default function CartPage() {
         className="  pt-4 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/client-bg1.jpg')" }}
       >
-        <div className="container mx-auto py-10 grid md:grid-cols-3 gap-8">
+        <div className="container mx-auto py-10 grid md:grid-cols-5 gap-8">
           {/* Items */}
-          <div className="md:col-span-2 space-y-4">
+          <div className="md:col-span-3 space-y-4">
             {items.map((item) => (
               <div
                 key={item.id}
@@ -56,11 +91,16 @@ export default function CartPage() {
             ))}
 
             <p className="text-2xl font font-semibold">Shipping Address :</p>
-            {user?.address !== "null" ? <ShippingAddress /> : `${user.address}`}
+
+            <ShippingAddress
+              countries={countries}
+              states={states}
+              cities={cities}
+            />
           </div>
 
           {/* Summary */}
-          <div className="space-y-6 border p-6 bg-black/20 rounded-xl">
+          <div className="md:col-span-2 space-y-6 border p-6  rounded-xl">
             <PromoCode />
             <ShippingChargeInput></ShippingChargeInput>
             <p>Subtotal: ৳{total.toFixed(2)}</p>
@@ -69,6 +109,9 @@ export default function CartPage() {
             <p className="font-bold text-[#119d3e]">
               Grand Total: ৳{grandTotal.toFixed(2)}
             </p>
+            <div>
+              <PaymentMethod></PaymentMethod>
+            </div>
             <button className="bg-green-600 text-white w-full py-3 cursor-pointer  hover:transform hover:scale-105 duration-300 ease-in-out hover:rounded-2xl">
               Checkout
             </button>
@@ -77,4 +120,6 @@ export default function CartPage() {
       </div>
     </div>
   );
-}
+};
+
+export default CartPage;

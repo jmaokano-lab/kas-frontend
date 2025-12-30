@@ -281,9 +281,9 @@ export default function Navbar() {
               >
                 <img
                   src={
-                    user?.avatarUrl ||
+                    user?.avatar ||
                     `https://i.pravatar.cc/100?u=${encodeURIComponent(
-                      user?.email
+                      user?.email ?? ""
                     )}`
                   }
                   alt="Profile"

@@ -3,6 +3,7 @@ import {
   BarChart3,
   Bell,
   Home,
+  HomeIcon,
   Menu,
   Package,
   Search,
@@ -16,19 +17,24 @@ import { useState } from "react";
 import OrderPage from "./order/page";
 import AnalyticsPage from "./analytics/page";
 import { useUser } from "@/context/UserContext";
+import Link from "next/link";
+import ReviewsPage from "./review/page";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
   const { user } = useUser();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activePage, setActivePage] = useState("dashboard");
+  const router = useRouter();
 
   const menuItems = [
     { id: "dashboard", icon: Home, label: "Dashboard" },
     { id: "orders", icon: ShoppingCart, label: "Orders" },
     // { id: "products", icon: Package, label: "Products" },
     // { id: "customers", icon: Users, label: "Customers" },
-    { id: "analytics", icon: BarChart3, label: "Analytics" },
+    { id: "review", icon: BarChart3, label: "My Review" },
     { id: "profile", icon: Users, label: "Profile" },
+    { id: "home", icon: HomeIcon, label: "Home" },
   ];
   console.log(user);
 
@@ -41,14 +47,16 @@ export default function Dashboard() {
         return <OrderPage />;
       case "profile":
         return <ProfilePage />;
-      //   case "products":
-      //     return <ProductsPage />;
+      case "review":
+        return <ReviewsPage />;
       //   case "customers":
       //     return <CustomersPage />;
       case "analytics":
         return <AnalyticsPage />;
-      //   case "settings":
-      //     return <SettingsPage />;
+      case "home":
+      case "home":
+        router.push("/");
+        return null;
       default:
         return <DashboardPage />;
     }
@@ -62,9 +70,14 @@ export default function Dashboard() {
           sidebarOpen ? "w-64" : "w-20"
         } bg-white border-r border-gray-200 transition-all duration-300 flex flex-col`}
       >
-        <div className="p-4 flex items-center justify-between border-b border-gray-200">
+        <div className="p-3 flex items-center justify-between border-b border-gray-200">
           {sidebarOpen && (
-            <h1 className="text-xl font-bold text-[#119d3e]">ShopDash</h1>
+            <Link
+              href="/"
+              className=" z-[1] flex min-h-[48px] items-center gap-2  px-4 text-white md:px-5"
+            >
+              <img src="./kasLogo.png" alt="KAS" className="size-10" />
+            </Link>
           )}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -79,7 +92,7 @@ export default function Dashboard() {
             <button
               key={item.id}
               onClick={() => setActivePage(item.id)}
-              className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+              className={`w-full flex items-center cursor-pointer gap-3 px-4 py-3 rounded-lg transition-colors ${
                 activePage === item.id
                   ? "bg-[#119d3e] text-white"
                   : "text-gray-700 hover:bg-gray-100"
@@ -108,7 +121,9 @@ export default function Dashboard() {
                   JD
                 </div>
                 <div className="hidden md:block">
-                  <p className="text-sm font-medium">{user?.name}</p>
+                  <p className="text-sm font-medium text-gray-800 uppercase">
+                    {user?.name}
+                  </p>
                   <p className="text-xs text-gray-500">{user?.user_type}</p>
                 </div>
               </div>

@@ -1,8 +1,8 @@
-"use server"
+"use server";
 import { LoginPayload, PayloadData } from "@/types/User";
 import { cookies } from "next/headers";
 
-export const registerUser = async (userData:PayloadData) => {
+export const registerUser = async (userData: PayloadData) => {
   try {
     console.log(userData);
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/signup`, {
@@ -24,8 +24,7 @@ export const registerUser = async (userData:PayloadData) => {
   }
 };
 
-export const loginUser = async (userData:LoginPayload
-) => {
+export const loginUser = async (userData: LoginPayload) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/login`, {
       method: "POST",
@@ -50,17 +49,17 @@ export const loginUser = async (userData:LoginPayload
 
 export const getCurrentUser = async () => {
   const token = (await cookies()).get("accessToken")?.value;
-  console.log(token)
+  console.log(token);
   if (!token) return console.log("No token found");
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/user`, {    
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/auth/user`, {
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: "application/json",
     },
     credentials: "include",
   });
-  console.log(res)
+  // console.log(res)
 
   // if (!res?.statusText) return null;
   const data = await res.json();
@@ -68,10 +67,6 @@ export const getCurrentUser = async () => {
   return data;
 };
 
-
-
 export const logout = async () => {
-  
   (await cookies()).delete("accessToken");
 };
-

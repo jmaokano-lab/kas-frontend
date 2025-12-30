@@ -64,8 +64,8 @@ export const getSingleProduct = async (slug: string) => {
 //get related product
 
 export const getRelatedProducts = async (slug: string) => {
-  console.log("======================Slug==========================");
-  console.log(slug);
+  // console.log("======================Slug==========================");
+  // console.log(slug);
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_API}/related-products/${slug}`,

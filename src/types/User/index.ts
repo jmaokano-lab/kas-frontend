@@ -1,14 +1,18 @@
 export interface IUser {
-  id: number;
-  name: string;
-  email: string;
-  user_type: string;
-
-  address: string;
-  role: "user" | "admin";
-  avatarUrl: string;
-  created_at?: Date;
-  updated_at?: Date;
+  id?: number | string;
+  name?: string | undefined;
+  email?: string | undefined;
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  postal_code?: string;
+  balance?: number;
+  user_type?: string;
+  banned?: number;
+  created_at?: string; // or Date
+  avatar?: string;
 }
 
 export type PayloadData = {

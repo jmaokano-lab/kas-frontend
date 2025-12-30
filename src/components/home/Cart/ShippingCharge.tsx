@@ -12,7 +12,7 @@ export default function ShippingChargeInput() {
         type="number"
         value={shippingCharge}
         onChange={(e) => setShippingCharge(Number(e.target.value) || 0)}
-        className="border px-3 py-2 rounded w-full"
+        className="bg-black/20 px-3 py-2 rounded w-full"
         placeholder="Enter shipping cost"
       />
     </div>

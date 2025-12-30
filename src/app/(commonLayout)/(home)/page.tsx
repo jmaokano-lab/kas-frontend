@@ -6,7 +6,6 @@ import StatsBar from "@/components/home/StartBar";
 import Testimonial from "@/components/home/Testimonial";
 import { getAllProducts } from "@/services/Products";
 import { getAllTestimonials } from "@/services/Testimonial";
-import React from "react";
 
 const Home = async () => {
   const { data } = await getAllTestimonials();

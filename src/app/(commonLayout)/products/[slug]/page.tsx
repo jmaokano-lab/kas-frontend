@@ -5,18 +5,11 @@ import PageBanner from "@/components/shared/PageBanner";
 
 import { getSingleProduct } from "@/services/Products";
 
-interface ProductPageProps {
-  params: {
-    slug: string;
-    id: string;
-  };
-}
+type PageProps = {
+  params?: Promise<any>;
+};
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Record<string, string | undefined>;
-}) {
+export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
 
   if (!slug) {

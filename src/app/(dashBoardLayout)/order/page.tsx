@@ -1,7 +1,12 @@
-import React from "react";
+import OrderComponent from "@/components/Dashboard/OrderComponent";
+import { Edit, Eye, Plus } from "lucide-react";
 
 const OrderPage = () => {
-  return <div>Order</div>;
+  return (
+    <>
+      <OrderComponent></OrderComponent>
+    </>
+  );
 };
 
 export default OrderPage;
