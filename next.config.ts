@@ -1,5 +1,5 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from "next";
+const nextConfig: NextConfig = {
   // images: {
   //   domains: ['kidzbd.org'], //  external image domains here
   // },
@@ -7,19 +7,19 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "i.pravatar.cc",
-        pathname: "/**",
+        hostname: "www.ripongroups.com",
+        pathname: "/public/uploads/all/**",
       },
     ],
   },
-  async rewrites() {
-    return [
-      {
-        source: "/api/testimonial",
-        destination: "https://kidzbd.org/api/v2/testimonial",
-      },
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/api/testimonial",
+  //       destination: "https://www.ripongroups.com/api/v2/testimonial",
+  //     },
+  //   ];
+  // },
 };
 
 module.exports = nextConfig;

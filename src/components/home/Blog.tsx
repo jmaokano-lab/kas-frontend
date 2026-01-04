@@ -12,17 +12,7 @@ import {
 } from "lucide-react";
 import BlogCard2 from "./Card/BlogCard2";
 import "./BlogSlide.css";
-
-type BlogPost = {
-  id: string;
-  title: string;
-  description: string;
-  category: string;
-  date: string;
-  image: string;
-  link: string;
-  comments: number;
-};
+import { BlogData, BlogPost } from "@/types/Blog";
 
 export const blogPosts: BlogPost[] = [
   {
@@ -195,7 +185,8 @@ export const BlogCard: FC<{ post: BlogPost }> = ({ post }) => {
   );
 };
 
-const Blog = () => {
+const Blog = ({ blogs }: { blogs: BlogData[] }) => {
+  // console.log("Blog data", blogs);
   return (
     <section
       className="bg-gray-100 bg-cover bg-center bg-no-repeat max-h-[850px] max-w-7xl mx-auto px-4 lg:pb-72"

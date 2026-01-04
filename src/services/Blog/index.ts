@@ -10,7 +10,7 @@ export const getSingleBlog = async (id: string) => {
       //   headers: {
       //     Authorization: `Bearer ${token}`,
       //   },
-      //   credentials: "include",
+      credentials: "include",
       //   body: data,
     });
 
@@ -22,23 +22,18 @@ export const getSingleBlog = async (id: string) => {
   }
 };
 
-export const getAllBlogs = async (
-  search?: string,
-  status?: string,
-  currentPage?: number,
-  perPage?: number
-) => {
+export const getAllBlogs = async () => {
   try {
-    let url = `${process.env.NEXT_PUBLIC_BASE_API}/blogs?page=${currentPage}&per_page=${perPage}&`;
+    // if (search) url += `search=${encodeURIComponent(search)}&`;
+    // if (status) url += `status=${status}`;
 
-    if (search) url += `search=${encodeURIComponent(search)}&`;
-    if (status) url += `status=${status}`;
-
-    const res = await fetch(url, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/blog-list`, {
+      method: "GET",
       credentials: "include",
     });
 
     const data = await res.json();
+    // console.log(data);
     return data;
   } catch (error) {
     console.error("Error fetching blogs:", error);

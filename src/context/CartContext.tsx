@@ -1,26 +1,23 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import { CartItem, ShippingAddress } from "@/types/Cart";
-import {
-  getAllCities,
-  getAllCountries,
-  getAllState,
-} from "@/services/Checkout";
+import { CartItem } from "@/types/Cart";
 import { PaymentType } from "@/components/home/Cart/PaymentMethod";
+import { Area, City, Country, ShippingForm, State } from "@/types/Address";
 
 interface CartContextType {
   items: CartItem[];
   promoCode: string | null;
   discount: number;
   shippingCharge: number;
-  shippingAddress: ShippingAddress | null;
+  shippingAddress: ShippingForm | null;
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: number) => void;
   updateQty: (id: number, qty: number) => void;
   applyPromo: (code: string) => void;
-  setShippingAddress: (address: ShippingAddress) => void;
+  setShippingAddress: (address: ShippingForm) => void;
   setShippingCharge: (charge: number) => void;
+
   total: number;
   grandTotal: number;
   itemCount: number;
@@ -28,15 +25,17 @@ interface CartContextType {
   clearCart: () => void;
   paymentMethod: PaymentType;
   setPaymentMethod: (method: PaymentType) => void;
-  countries: Option[];
-  states: Option[];
-  cities: Option[];
+  countries: Country[];
+  setCountries: React.Dispatch<React.SetStateAction<Country[]>>;
+  setStates: React.Dispatch<React.SetStateAction<State[]>>;
+  setCities: React.Dispatch<React.SetStateAction<City[]>>;
+  setAreas: React.Dispatch<React.SetStateAction<Area[]>>;
+  states: State[];
+  cities: City[];
   loading: boolean;
+  areas: Area[];
+  // ShipAddress: ShippingAddress[];
 }
-export type Option = {
-  id: number | string;
-  name: string;
-};
 
 const CartContext = createContext<CartContextType | null>(null);
 
@@ -45,11 +44,13 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [promoCode, setPromoCode] = useState<string | null>(null);
   const [discount, setDiscount] = useState(0);
   const [shippingCharge, setShippingCharge] = useState(0);
-  const [shippingAddress, setShippingAddress] =
-    useState<ShippingAddress | null>(null);
-  const [countries, setCountries] = useState<Option[]>([]);
-  const [states, setStates] = useState<Option[]>([]);
-  const [cities, setCities] = useState<Option[]>([]);
+  const [shippingAddress, setShippingAddress] = useState<ShippingForm | null>(
+    null
+  );
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [states, setStates] = useState<State[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
+  const [areas, setAreas] = useState<Area[]>([]);
   const [loading, setLoading] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState<PaymentType>("cod");
 
@@ -62,30 +63,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(items));
   }, [items]);
-  useEffect(() => {
-    const loadCartData = async () => {
-      try {
-        const [
-          countriesRes,
-          //  statesRes, citiesRes
-        ] = await Promise.all([
-          getAllCountries(),
-          // getAllState(),
-          // getAllCities(),
-        ]);
-
-        setCountries(countriesRes);
-        // setStates(statesRes);
-        // setCities(citiesRes);
-      } catch (error) {
-        console.error("Failed to load cart data", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadCartData();
-  }, []);
 
   const addToCart = (item: CartItem) => {
     setItems((prev) => {
@@ -160,9 +137,15 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         buyNow,
         clearCart,
         countries,
+        setCountries,
         states,
+        setStates,
         cities,
+        setCities,
+        areas,
+        setAreas,
         loading,
+
         setPaymentMethod,
         paymentMethod,
       }}

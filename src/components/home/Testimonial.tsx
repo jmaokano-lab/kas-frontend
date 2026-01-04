@@ -11,7 +11,7 @@ interface Props {
 
 const Testimonial = ({ data }: Props) => {
   const [testDatas, setTestDatas] = useState<TestType[]>([]);
-  console.log(testDatas);
+  // console.log(testDatas);
 
   useEffect(() => {
     if (data) {
